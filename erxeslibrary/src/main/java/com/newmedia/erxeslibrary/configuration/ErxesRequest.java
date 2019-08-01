@@ -9,6 +9,7 @@ import com.apollographql.apollo.subscription.WebSocketSubscriptionTransport;
 
 import com.newmedia.erxes.basic.type.AttachmentInput;
 import com.newmedia.erxes.basic.type.CustomType;
+import com.newmedia.erxeslibrary.configuration.params.LoginParams;
 import com.newmedia.erxeslibrary.graphqlfunction.GetGEO;
 import com.newmedia.erxeslibrary.graphqlfunction.GetKnowledge;
 import com.newmedia.erxeslibrary.ErxesObserver;
@@ -34,13 +35,13 @@ import okhttp3.logging.HttpLoggingInterceptor;
 public class ErxesRequest {
     final private String TAG = "erxesrequest";
 
-    public ApolloClient apolloClient;
+    private ApolloClient apolloClient;
     private OkHttpClient okHttpClient;
     private Activity activity;
     private List<ErxesObserver> observers;
     private Config config;
 
-    static public ErxesRequest erxesRequest;
+    static private ErxesRequest erxesRequest;
 
     static public ErxesRequest getInstance(Config config) {
         if (erxesRequest == null)
@@ -51,7 +52,10 @@ public class ErxesRequest {
     private ErxesRequest(Config config) {
         this.activity = config.activity;
         this.config = config;
-        Helper.Init(activity);
+    }
+
+    public ApolloClient getApolloClient() {
+        return apolloClient;
     }
 
     public void set_client() {
@@ -72,7 +76,8 @@ public class ErxesRequest {
 //                        CipherSuite.TLS_DHE_RSA_WITH_AES_128_CBC_SHA)
 //                .build();
 
-        if (config.HOST_3100 != null) {
+        LoginParams loginParams = config.getLoginParams();
+        if (loginParams.WIDGET_API != null) {
             okHttpClient = new OkHttpClient.Builder()
 //                    .connectionSpecs(Collections.singletonList(spec))
                     .writeTimeout(30, TimeUnit.SECONDS)
@@ -82,10 +87,10 @@ public class ErxesRequest {
                     .addInterceptor(new ReceivedCookiesInterceptor(this.activity))
                     .build();
             apolloClient = ApolloClient.builder()
-                    .serverUrl(config.HOST_3100)
+                    .serverUrl(loginParams.WIDGET_API)
                     .okHttpClient(okHttpClient)
-                    .subscriptionTransportFactory(new WebSocketSubscriptionTransport.Factory(config.HOST_3300, okHttpClient))
-                    .addCustomTypeAdapter(CustomType.JSON, new JsonCustomTypeAdapter())
+                    .subscriptionTransportFactory(new WebSocketSubscriptionTransport.Factory(loginParams.API, okHttpClient))
+//                    .addCustomTypeAdapter(CustomType.JSON, new JsonCustomTypeAdapter())
                     .addCustomTypeAdapter(CustomType.JSON, new JsonCustomTypeAdapter2())
                     .build();
         }

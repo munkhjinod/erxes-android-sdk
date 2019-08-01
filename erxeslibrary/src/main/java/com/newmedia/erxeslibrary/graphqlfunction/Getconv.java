@@ -30,7 +30,8 @@ public class Getconv {
 
     }
     public void run(){
-        ER.apolloClient.query(ConversationsQuery.builder()
+        config.getMessengerParams().customerId
+        ER.getApolloClient().query(ConversationsQuery.builder()
                         .integrationId(config.integrationId)
                         .customerId(config.customerId).build())
                 .enqueue(request);

@@ -1,22 +1,18 @@
 package com.newmedia.erxeslibrary.graphqlfunction;
 
 import android.app.Activity;
-import android.content.Context;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
-import com.newmedia.erxes.basic.FormConnectMutation;
 import com.newmedia.erxes.basic.MessengerConnectMutation;
 import com.newmedia.erxeslibrary.configuration.Config;
 import com.newmedia.erxeslibrary.configuration.ErxesRequest;
-import com.newmedia.erxeslibrary.configuration.Helper;
+import com.newmedia.erxeslibrary.helper.Helper;
 import com.newmedia.erxeslibrary.configuration.ReturnType;
 import com.newmedia.erxeslibrary.DataManager;
 import com.newmedia.erxeslibrary.helper.Json;
-import com.newmedia.erxeslibrary.model.FormConnect;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;

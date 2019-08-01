@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.newmedia.erxeslibrary.R;
 import com.newmedia.erxeslibrary.configuration.Config;
-import com.newmedia.erxeslibrary.configuration.Helper;
+import com.newmedia.erxeslibrary.helper.Helper;
 import com.newmedia.erxeslibrary.configuration.SoftKeyboard;
 import com.newmedia.erxeslibrary.model.KnowledgeBaseArticle;
 import com.newmedia.erxeslibrary.model.KnowledgeBaseCategory;
@@ -64,7 +64,7 @@ public class FaqDetailActivity extends AppCompatActivity {
                 });
             }
         });
-        this.findViewById(R.id.info_header).setBackgroundColor(config.colorCode);
+        this.findViewById(R.id.info_header).setBackgroundColor(config.getMessengerParams().colorCode);
         this.findViewById(R.id.close).setOnTouchListener(touchListener);
         this.findViewById(R.id.back).setOnTouchListener(touchListener);
 

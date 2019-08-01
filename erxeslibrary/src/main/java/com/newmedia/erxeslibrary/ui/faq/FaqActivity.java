@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.newmedia.erxeslibrary.R;
 import com.newmedia.erxeslibrary.configuration.Config;
-import com.newmedia.erxeslibrary.configuration.Helper;
+import com.newmedia.erxeslibrary.helper.Helper;
 import com.newmedia.erxeslibrary.configuration.SoftKeyboard;
 import com.newmedia.erxeslibrary.model.KnowledgeBaseCategory;
 import com.newmedia.erxeslibrary.ui.conversations.adapter.ArticleAdapter;
@@ -39,7 +39,7 @@ public class FaqActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(config.customerId == null) {
+        if(!config.isLoggedIn()) {
             this.finish();
         }
     }
@@ -77,7 +77,7 @@ public class FaqActivity extends AppCompatActivity {
                 });
             }
         });
-        this.findViewById(R.id.info_header).setBackgroundColor(config.colorCode);
+        this.findViewById(R.id.info_header).setBackgroundColor(config.getMessengerParams().colorCode);
         this.findViewById(R.id.close).setOnTouchListener(touchListener);
         this.findViewById(R.id.back).setOnTouchListener(touchListener);
         recyclerView = this.findViewById(R.id.recycler_view);

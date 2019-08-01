@@ -9,10 +9,8 @@ import com.apollographql.apollo.exception.ApolloException;
 import com.newmedia.erxes.basic.GetMessengerIntegrationQuery;
 import com.newmedia.erxeslibrary.configuration.Config;
 import com.newmedia.erxeslibrary.configuration.ErxesRequest;
-import com.newmedia.erxeslibrary.configuration.Helper;
+import com.newmedia.erxeslibrary.helper.Helper;
 import com.newmedia.erxeslibrary.configuration.ReturnType;
-
-import org.jetbrains.annotations.NotNull;
 
 public class GetInteg {
     final static String TAG = "GETINTEG";

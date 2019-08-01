@@ -4,8 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.google.gson.Gson;
-import com.newmedia.erxeslibrary.configuration.Messengerdata;
+import com.newmedia.erxeslibrary.configuration.state.Messengerdata;
 import com.newmedia.erxeslibrary.helper.Json;
 
 import org.json.JSONException;
@@ -20,7 +19,13 @@ public class DataManager {
     // Editor reference for Shared preferences
     SharedPreferences.Editor editor;
     private static final String PREFER_NAME = "ERXES_LIB";
-    public static final String brandcode = "brandcode";
+    public static final String BRANDCODE = "brandcode";
+
+    public static final String WIDGET_API = "widget_api";
+    public static final String API = "api";
+    public static final String WIDGET_API_UPLOAD = "widget_api_upload";
+
+
     public static final String email = "email";
     public static final String phone = "phone";
     public static final String integrationId = "integrationId";
@@ -29,6 +34,9 @@ public class DataManager {
     public static final String language = "language";
     public static final String isUser = "isUser";
     public static final String customData = "customData";
+    public static final String wallpaper = "wallpaper";
+
+
 
 
     static private DataManager dataManager;
@@ -52,38 +60,32 @@ public class DataManager {
         editor = pref.edit();
     }
     public void setData(String key, String data) {
-        // Storing login value as TRUE
         editor.putString(key, data);
         editor.commit();
     }
     public String getDataS(String key) {
-        // Storing login value as TRUE
         return pref.getString(key, null);
     }
     public void setData(String key, int data) {
-        // Storing login value as TRUE
         editor.putInt(key, data);
         editor.commit();
     }
     public int getDataI(String key) {
-        // Storing login value as TRUE
         return pref.getInt(key, 0);
     }
     public void setData(String key, boolean data) {
-        // Storing login value as TRUE
         editor.putBoolean(key, data);
         editor.commit();
     }
     public boolean getDataB(String key) {
-        // Storing login value as TRUE
         return pref.getBoolean(key, true);
     }
     public void setMessengerData(String data){
-        editor.putString("message", data);
+        editor.putString("messagerData", data);
         editor.commit();
     }
     public Messengerdata getMessenger(){
-        if (pref.getString("message", null) != null) {
+        if (pref.getString("messagerData", null) != null) {
             try {
                 return Messengerdata.convert(new Json(new JSONObject(pref.getString("message", null))), pref.getString(language, null));
             } catch (JSONException e) {

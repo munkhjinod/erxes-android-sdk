@@ -1,36 +1,30 @@
-package com.newmedia.erxeslibrary.configuration;
+package com.newmedia.erxeslibrary.helper;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.google.gson.Gson;
 import com.newmedia.erxeslibrary.DataManager;
-import com.newmedia.erxeslibrary.helper.Json;
+import com.newmedia.erxeslibrary.configuration.Config;
+import com.newmedia.erxeslibrary.configuration.state.Messengerdata;
 import com.newmedia.erxeslibrary.ui.login.ErxesActivity;
 import com.newmedia.erxeslibrary.R;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Helper {
-    static DataManager dataManager;
-    static Config config;
-    static public int[] backgrounds ={R.drawable.bitmap1,R.drawable.bitmap2,R.drawable.bitmap3,R.drawable.bitmap4};
-
+    static private Config config;
+    static private DataManager dataManager;
+    private String language;
     static public final Map<String, Integer> ICON_MAP =
             Collections.unmodifiableMap(new HashMap<String,Integer>() {{
                 put("paste", R.drawable.paste);
@@ -78,8 +72,7 @@ public class Helper {
     static public void load_uiOptions(Json js){
         if(js == null)
             return;
-        String color = null;
-        color = js.getString("color");
+        String color = js.getString("color");
         dataManager.setData(DataManager.color, color);
         if(color != null)
             config.colorCode = Color.parseColor(color);
@@ -88,9 +81,9 @@ public class Helper {
         }
         color = js.getString("wallpaper");
         dataManager.setData("wallpaper", color);
-
+        language = dataManager.getDataS(DataManager.language);
     }
-    static public void load_messengerData(Json js){
+    static public void load_messengerData(Json js,DataManager dataManager){
         if(js == null)
             return;
         dataManager.setMessengerData(js.toString());
@@ -123,5 +116,6 @@ public class Helper {
         return size;
 
     }
+
 
 }

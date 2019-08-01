@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import com.newmedia.erxeslibrary.DataManager;
 import com.newmedia.erxeslibrary.configuration.Config;
-import com.newmedia.erxeslibrary.configuration.Helper;
+import com.newmedia.erxeslibrary.helper.Helper;
 import com.newmedia.erxeslibrary.configuration.ReturnType;
 import com.newmedia.erxeslibrary.configuration.ErxesRequest;
 import com.newmedia.erxeslibrary.ui.conversations.ConversationListActivity;
@@ -38,6 +38,7 @@ public class ErxesActivity extends AppCompatActivity implements ErxesObserver {
     private ErxesRequest erxesRequest;
     private DataManager dataManager;
     private LinearLayout loaderView;
+    private int colorCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +59,7 @@ public class ErxesActivity extends AppCompatActivity implements ErxesObserver {
         smsgroup = this.findViewById(R.id.smsgroup);
         mailzurag = this.findViewById(R.id.mail_zurag);
         phonezurag = this.findViewById(R.id.phonezurag);
-
+        colorCode = config.getMessengerParams().colorCode;
         Helper.display_configure(this, container, "#66000000");
         this.findViewById(R.id.logout).setOnTouchListener(touchListener);
         change_color();
@@ -83,13 +84,13 @@ public class ErxesActivity extends AppCompatActivity implements ErxesObserver {
     }
 
     private void change_color() {
-        this.findViewById(R.id.info_header).setBackgroundColor(config.colorCode);
-        mailgroup.setCardBackgroundColor(config.colorCode);
-        sms_button.setTextColor(config.colorCode);
-        changeBitmapColor(phonezurag, config.colorCode);
+        this.findViewById(R.id.info_header).setBackgroundColor(colorCode);
+        mailgroup.setCardBackgroundColor(colorCode);
+        sms_button.setTextColor(colorCode);
+        changeBitmapColor(phonezurag, colorCode);
 
         Drawable drawable = this.findViewById(R.id.selector).getBackground();
-        drawable.setColorFilter(config.colorCode, PorterDuff.Mode.SRC_ATOP);
+        drawable.setColorFilter(colorCode, PorterDuff.Mode.SRC_ATOP);
 
     }
 
@@ -100,9 +101,9 @@ public class ErxesActivity extends AppCompatActivity implements ErxesObserver {
         smsgroup.setCardBackgroundColor(Color.WHITE);
         email_button.setTextColor(Color.WHITE);
         changeBitmapColor(mailzurag, Color.WHITE);
-        sms_button.setTextColor(config.colorCode);
-        ((CardView) v).setCardBackgroundColor(config.colorCode);
-        changeBitmapColor(phonezurag, config.colorCode);
+        sms_button.setTextColor(colorCode);
+        ((CardView) v).setCardBackgroundColor(colorCode);
+        changeBitmapColor(phonezurag, colorCode);
 
     }
 
@@ -119,9 +120,9 @@ public class ErxesActivity extends AppCompatActivity implements ErxesObserver {
         sms_button.setTextColor(Color.WHITE);
         changeBitmapColor(phonezurag, Color.WHITE);
 
-        email_button.setTextColor(config.colorCode);
-        ((CardView) v).setCardBackgroundColor(config.colorCode);
-        changeBitmapColor(mailzurag, config.colorCode);
+        email_button.setTextColor(colorCode);
+        ((CardView) v).setCardBackgroundColor(colorCode);
+        changeBitmapColor(mailzurag, colorCode);
 
     }
 

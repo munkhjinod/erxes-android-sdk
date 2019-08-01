@@ -1,4 +1,4 @@
-package com.newmedia.erxeslibrary.configuration;
+package com.newmedia.erxeslibrary.configuration.state;
 
 import com.newmedia.erxeslibrary.helper.Json;
 
