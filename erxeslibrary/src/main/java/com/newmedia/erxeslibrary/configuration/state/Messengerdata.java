@@ -1,5 +1,6 @@
 package com.newmedia.erxeslibrary.configuration.state;
 
+import com.newmedia.erxeslibrary.DataManager;
 import com.newmedia.erxeslibrary.helper.Json;
 
 import org.json.JSONArray;
@@ -244,4 +245,7 @@ public class Messengerdata {
     public void setMessages(Messages messages) {
         this.messages = messages;
     }
+
+
+
 }

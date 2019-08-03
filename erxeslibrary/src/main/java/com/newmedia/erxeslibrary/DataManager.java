@@ -10,14 +10,16 @@ import com.newmedia.erxeslibrary.helper.Json;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Created by lol on 3/23/16.
  */
 public class DataManager {
-    SharedPreferences pref;
-    int PRIVATE_MODE = 0;
+    private SharedPreferences pref;
+    static final private int PRIVATE_MODE = 0;
     // Editor reference for Shared preferences
-    SharedPreferences.Editor editor;
+    private SharedPreferences.Editor editor;
     private static final String PREFER_NAME = "ERXES_LIB";
     public static final String BRANDCODE = "brandcode";
 
@@ -36,16 +38,12 @@ public class DataManager {
     public static final String customData = "customData";
     public static final String wallpaper = "wallpaper";
 
-
+    private static final String messengerData ="messengerData";
 
 
     static private DataManager dataManager;
-    static public DataManager getInstance(Activity activity){
-        if(dataManager == null)
-            dataManager = new DataManager(activity);
+    private WeakReference<Context> _context;
 
-        return dataManager;
-    }
     static public DataManager getInstance(Context context){
         if(dataManager == null)
             dataManager = new DataManager(context);
@@ -53,10 +51,9 @@ public class DataManager {
         return dataManager;
     }
     // Context
-    Context _context;
     private DataManager(Context context) {
-        this._context = context;
-        pref = _context.getSharedPreferences(PREFER_NAME, PRIVATE_MODE);
+        this._context = new WeakReference<>(context);
+        pref = _context.get().getSharedPreferences(PREFER_NAME, PRIVATE_MODE);
         editor = pref.edit();
     }
     public void setData(String key, String data) {
@@ -65,6 +62,9 @@ public class DataManager {
     }
     public String getDataS(String key) {
         return pref.getString(key, null);
+    }
+    public String getDataS(String key,String default_) {
+        return pref.getString(key, default_);
     }
     public void setData(String key, int data) {
         editor.putInt(key, data);
@@ -81,13 +81,13 @@ public class DataManager {
         return pref.getBoolean(key, true);
     }
     public void setMessengerData(String data){
-        editor.putString("messagerData", data);
+        editor.putString(DataManager.messengerData, data);
         editor.commit();
     }
     public Messengerdata getMessenger(){
-        if (pref.getString("messagerData", null) != null) {
+        if (pref.getString(DataManager.messengerData, null) != null) {
             try {
-                return Messengerdata.convert(new Json(new JSONObject(pref.getString("message", null))), pref.getString(language, null));
+                return Messengerdata.convert(new Json(new JSONObject(pref.getString(DataManager.messengerData, null))), pref.getString(language, null));
             } catch (JSONException e) {
                 e.printStackTrace();
                 return null;

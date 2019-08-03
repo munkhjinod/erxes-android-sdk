@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 
 import com.newmedia.erxes.basic.type.FieldValueInput;
 import com.newmedia.erxeslibrary.DataManager;
-import com.newmedia.erxeslibrary.configuration.params.MessengerParams;
 import com.newmedia.erxeslibrary.configuration.params.LoginParams;
 import com.newmedia.erxeslibrary.configuration.state.Messengerdata;
 import com.newmedia.erxeslibrary.model.Conversation;
@@ -22,6 +21,7 @@ import com.newmedia.erxeslibrary.ErxesObserver;
 
 import org.json.JSONObject;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,28 +32,21 @@ public class Config implements ErxesObserver {
     static private Config config;
 
     private LoginParams loginParams;
-    private MessengerParams messengerParams;
-    public Messengerdata messengerdata;
-    public String conversationId = null;
+    private Messengerdata messengerdata;
+    private String conversationId = null;
 //    public boolean isMessengerOnline = false, notifyCustomer;
     private DataManager dataManager;
-    public Activity activity;
-    public Context context;
-    public FormConnect formConnect;
-    public List<FieldValueInput> fieldValueInputs = new ArrayList<>();
-    public Geo geo;
-    public String geoResponse;
-    public KnowledgeBaseTopic knowledgeBaseTopic = new KnowledgeBaseTopic();
-    public List<User> supporters = new ArrayList<>();
-    public List<Conversation> conversations = new ArrayList<>();
-    public List<ConversationMessage> conversationMessages = new ArrayList<>();
-    public boolean isFirstStart = false;
-
-
-    public MessengerParams getMessengerParams() {
-        return messengerParams;
-    }
-
+//    private Activity activity;
+    private WeakReference<Context> context;
+    private FormConnect formConnect;
+    private List<FieldValueInput> fieldValueInputs = new ArrayList<>();
+    private Geo geo;
+    private String geoResponse;
+    private KnowledgeBaseTopic knowledgeBaseTopic = new KnowledgeBaseTopic();
+    private List<User> supporters = new ArrayList<>();
+    private List<Conversation> conversations = new ArrayList<>();
+    private List<ConversationMessage> conversationMessages = new ArrayList<>();
+    private boolean isFirstStart = false;
     public LoginParams getLoginParams() {
         return loginParams;
     }
@@ -66,12 +59,6 @@ public class Config implements ErxesObserver {
         }
     }
 
-    static public Config getInstance(Activity activity) {
-        if (config == null) {
-            config = new Config(activity);
-        }
-        return config;
-    }
     static public Config getInstance(Context context) {
         if (config == null) {
             config = new Config(context);
@@ -152,8 +139,8 @@ public class Config implements ErxesObserver {
 
     public static class Builder {
         private String brand;
-        private String apiHost;
-        private String subscriptionHost;
+        private String WIDGET_API;
+        private String API;
         private String uploadHost;
 
         public Builder(@NonNull String brand) {
@@ -161,13 +148,13 @@ public class Config implements ErxesObserver {
             this.brand = brand;
         }
 
-        public Builder setApiHost(String apiHost) {
-            this.apiHost = apiHost;
+        public Builder setApiHost(String WIDGET_API) {
+            this.WIDGET_API = WIDGET_API;
             return this;
         }
 
-        public Builder setSubscriptionHost(String subscriptionHost) {
-            this.subscriptionHost = subscriptionHost;
+        public Builder setSubscriptionHost(String API) {
+            this.API = API;
             return this;
         }
 
@@ -178,7 +165,7 @@ public class Config implements ErxesObserver {
 
         public Config build(Activity context1) {
             Config t = Config.getInstance(context1);
-            t.Init(this.brand, this.apiHost, this.subscriptionHost, this.uploadHost);
+            t.Init(this.brand, this.WIDGET_API, this.API, this.uploadHost);
             return t;
         }
     }

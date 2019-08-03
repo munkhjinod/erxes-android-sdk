@@ -83,14 +83,6 @@ public class Helper {
         dataManager.setData("wallpaper", color);
         language = dataManager.getDataS(DataManager.language);
     }
-    static public void load_messengerData(Json js,DataManager dataManager){
-        if(js == null)
-            return;
-        dataManager.setMessengerData(js.toString());
-//        Gson gson = new Gson();
-//        config.messengerdata = gson.fromJson(js.toString(),Messengerdata.class);
-        config.messengerdata = Messengerdata.convert(js,config.language);
-    }
 
     static public Point display_configure(AppCompatActivity context, View container, String color){
 

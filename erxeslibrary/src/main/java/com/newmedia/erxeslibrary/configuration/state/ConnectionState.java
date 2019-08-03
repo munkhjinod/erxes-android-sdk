@@ -3,25 +3,20 @@ package com.newmedia.erxeslibrary.configuration.state;
 import android.graphics.Color;
 
 import com.newmedia.erxeslibrary.DataManager;
+import com.newmedia.erxeslibrary.helper.Json;
 
 public class ConnectionState {
-    public String customerId;
-    public String integrationId;
-    public String language;
-    public int colorCode;
+    private String customerId;
+    private String integrationId;
+    private String language;
 
-    private String color;
+    private Messengerdata messengerdata;
+    private UiOptions uiOptions;
+
     public void load(DataManager dataManager) {
         this.customerId = dataManager.getDataS(DataManager.customerId);
         this.integrationId = dataManager.getDataS(DataManager.integrationId);
-        this.color = dataManager.getDataS(DataManager.color);
         this.language = dataManager.getDataS(DataManager.language);
-        this.wallpaper = dataManager.getDataS(DataManager.wallpaper);
-
-        if (this.color != null)
-            this.colorCode = Color.parseColor(this.color);
-        else
-            this.colorCode = Color.parseColor("#5629B6");
     }
 
     public void save(DataManager dataManager) {
@@ -35,18 +30,29 @@ public class ConnectionState {
     public void changeLanguage(String lang,DataManager dataManager) {
         if (lang == null || lang.equalsIgnoreCase(""))
             return;
-
         this.language = lang;
         dataManager.setData(DataManager.language, this.language);
-
-//        Locale myLocale;
-//        myLocale = new Locale(lang);
-//
-//        Locale.setDefault(myLocale);
-//        android.content.res.Configuration config = new android.content.res.Configuration();
-//        config.locale = myLocale;
-//        activity.getResources().updateConfiguration(config, activity.getResources().getDisplayMetrics());
-
     }
 
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public String getIntegrationId() {
+        return integrationId;
+    }
+
+    public String getLanguage() {
+        if(language == null)
+            return "en";
+        return language;
+    }
+
+    public void setMessengerdata(Json json, DataManager dataManager) {
+        if(json == null)
+            return;
+        dataManager.setMessengerData(json.toString());
+
+        this.messengerdata = Messengerdata.convert(json,this.language);
+    }
 }
