@@ -22,8 +22,49 @@
     <string name="SUPPORT">SUPPORT</string>
     <string name="FAQ">FAQ</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="Welcome">Welcome!</string>
+    <string name="Close">Close</string>
+    <string name="Offline">Offline</string>
+    <string name="Online">Online</string>
+    <string name="Send_a_message">Send a message</string>
+    <string name="Send">Send</string>
+    <string name="Support">Support</string>
+    <string name="Faq">Faq</string>
+    <string name="Start_new_conversation">Start new conversation</string>
+    <string name="Write_a_reply">Write a reply</string>
+    <string name="Conversation">Conversation</string>
+    <string name="with_Support_staff">with Support staff</string>
+    <string name="Click_to_select_a_date">with Support staff</string>
+    <string name="Thanks_for_your_message_WWRAS">Thanks for your message. We will respond as soon as we can</string>
+    <string name="Create_new">Create new</string>
+    <string name="Written_by">Written by</string>
+    <string name="Modified">Modified</string>
+    <string name="Created">Created</string>
+    <string name="There_are">There are </string>
+    <string name="articles_in_this_category">articles in this category</string>
+    <string name="Back_to_categories">Back to categories</string>
+    <string name="Back_to_top">Back to top</string>
+    <string name="Back_to_articles">Back to articles</string>
+
+
+
+    <!--"Contact": "Contact",-->
+    <!--"Give us your contact information": "Give us your contact information",-->
+    <!--"Email": "Email",-->
+    <!--"SMS": "SMS",-->
+    <!--"email@domain.com": "email@domain.com",-->
+    <!--"phone number": "phone number",-->
+    <!--"Support staff": "Support staff",-->
+    <!--"Conversations": "Conversations",-->
+    <!--"Recent conversations": "Recent conversations",-->
+    <!--"with Support staffs": "with Support staffs",-->
+    <!--"Talk with support staff": "Talk with support staff",-->
+    <!--"Do you want to end this conversation ?": "Do you want to end this conversation ?",-->
+    <!--"Welcome description": "Let me know if you have any questions! We'd be happy to help",-->
+    <!--"Failed": "Failed",-->
+    <!--"No articles found": "No articles found",-->
+    <!--"Search": "Search",-->
+    <!--"End conversation": "End conversation"-->
 
 </resources>

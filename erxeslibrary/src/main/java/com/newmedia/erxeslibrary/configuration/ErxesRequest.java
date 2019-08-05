@@ -25,6 +25,7 @@ import com.newmedia.erxeslibrary.graphqlfunction.SetConnect;
 import com.newmedia.erxeslibrary.helper.JsonCustomTypeAdapter2;
 
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -33,11 +34,11 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 public class ErxesRequest {
-    final private String TAG = "erxesrequest";
+    final private String TAG = ErxesRequest.class.getName();
 
     private ApolloClient apolloClient;
     private OkHttpClient okHttpClient;
-    private Activity activity;
+    private WeakReference<Activity> activity;
     private List<ErxesObserver> observers;
     private Config config;
 
@@ -50,7 +51,6 @@ public class ErxesRequest {
     }
 
     private ErxesRequest(Config config) {
-        this.activity = config.activity;
         this.config = config;
     }
 
@@ -61,21 +61,6 @@ public class ErxesRequest {
     public void set_client() {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-//        ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-//                .tlsVersions(TlsVersion.TLS_1_0, TlsVersion.TLS_1_1, TlsVersion.TLS_1_2, TlsVersion.SSL_3_0)
-//                .cipherSuites(
-//                        CipherSuite.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
-//                        CipherSuite.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
-//                        CipherSuite.TLS_DHE_RSA_WITH_AES_128_GCM_SHA256,
-//                        CipherSuite.TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,
-//                        CipherSuite.TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,
-//                        CipherSuite.TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,
-//                        CipherSuite.TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,
-//                        CipherSuite.TLS_ECDHE_ECDSA_WITH_RC4_128_SHA,
-//                        CipherSuite.TLS_ECDHE_RSA_WITH_RC4_128_SHA,
-//                        CipherSuite.TLS_DHE_RSA_WITH_AES_128_CBC_SHA)
-//                .build();
-
         LoginParams loginParams = config.getLoginParams();
         if (loginParams.WIDGET_API != null) {
             okHttpClient = new OkHttpClient.Builder()
@@ -83,8 +68,8 @@ public class ErxesRequest {
                     .writeTimeout(30, TimeUnit.SECONDS)
                     .readTimeout(30, TimeUnit.SECONDS)
                     .addInterceptor(logging)
-                    .addInterceptor(new AddCookiesInterceptor(this.activity))
-                    .addInterceptor(new ReceivedCookiesInterceptor(this.activity))
+                    .addInterceptor(new AddCookiesInterceptor(this.activity.get()))
+                    .addInterceptor(new ReceivedCookiesInterceptor(this.activity.get()))
                     .build();
             apolloClient = ApolloClient.builder()
                     .serverUrl(loginParams.WIDGET_API)
@@ -100,7 +85,7 @@ public class ErxesRequest {
         if (!isNetworkConnected()) {
             return;
         }
-        SetConnect setConnect = new SetConnect(this, activity);
+        SetConnect setConnect = new SetConnect(this, activity.get());
         setConnect.run(email, phone, isUser, data);
     }
 
@@ -108,7 +93,7 @@ public class ErxesRequest {
         if (!isNetworkConnected()) {
             return;
         }
-        GetGEO getGEO = new GetGEO(this, activity);
+        GetGEO getGEO = new GetGEO(this, activity.get());
         getGEO.run();
     }
 
@@ -116,7 +101,7 @@ public class ErxesRequest {
         if (!isNetworkConnected()) {
             return;
         }
-        GetInteg getIntegration = new GetInteg(this, activity);
+        GetInteg getIntegration = new GetInteg(this, activity.get());
         getIntegration.run();
     }
 
@@ -124,7 +109,7 @@ public class ErxesRequest {
         if (!isNetworkConnected()) {
             return;
         }
-        Insertmess insertmessage = new Insertmess(this, activity);
+        Insertmess insertmessage = new Insertmess(this, activity.get());
         insertmessage.run(message, conversationId, list);
     }
 
@@ -133,7 +118,7 @@ public class ErxesRequest {
             return;
         }
 
-        Insertnewmess insertnewmessage = new Insertnewmess(this, activity);
+        Insertnewmess insertnewmessage = new Insertnewmess(this, activity.get());
         insertnewmessage.run(message, list);
     }
 
@@ -141,7 +126,7 @@ public class ErxesRequest {
         if (!isNetworkConnected()) {
             return;
         }
-        Getconv getconversation = new Getconv(this, activity);
+        Getconv getconversation = new Getconv(this, activity.get());
         getconversation.run();
 
 
@@ -151,7 +136,7 @@ public class ErxesRequest {
         if (!isNetworkConnected()) {
             return;
         }
-        Getmess getmess = new Getmess(this, activity);
+        Getmess getmess = new Getmess(this, activity.get());
         getmess.run(conversationid);
 
     }
@@ -160,7 +145,7 @@ public class ErxesRequest {
         if (!isNetworkConnected()) {
             return;
         }
-        GetSup getSup = new GetSup(this, activity);
+        GetSup getSup = new GetSup(this, activity.get());
         getSup.run();
     }
 
@@ -168,7 +153,7 @@ public class ErxesRequest {
         if (!isNetworkConnected()) {
             return;
         }
-        GetKnowledge getSup = new GetKnowledge(this, activity);
+        GetKnowledge getSup = new GetKnowledge(this, activity.get());
         getSup.run();
     }
 
@@ -176,7 +161,7 @@ public class ErxesRequest {
         if (!isNetworkConnected()) {
             return;
         }
-        GetLead getLead = new GetLead(this, activity);
+        GetLead getLead = new GetLead(this, activity.get());
         getLead.run();
     }
 
@@ -184,7 +169,7 @@ public class ErxesRequest {
         if (!isNetworkConnected()) {
             return;
         }
-        SendLead sendLead = new SendLead(this, activity);
+        SendLead sendLead = new SendLead(this, activity.get());
         sendLead.run();
     }
 
@@ -195,32 +180,8 @@ public class ErxesRequest {
         observers.add(e);
     }
 
-    //    public void isMessengerOnline(){
-//        if(!isNetworkConnected()){
-//            return;
-//        }
-//
-//        apolloClient.query(IsMessengerOnlineQuery.builder().integrationId(config.integrationId)
-//                .build()).enqueue(new ApolloCall.Callback<IsMessengerOnlineQuery.Data>() {
-//            @Override
-//            public void onResponse(@Nonnull Response<IsMessengerOnlineQuery.Data> response) {
-//                if(!response.hasErrors()){
-//                    config.isMessengerOnline =  response.data().isMessengerOnline();
-//                    notefyAll(ReturnType.IsMessengerOnline,null,null);
-//                }
-//                else
-//                    notefyAll(ReturnType.SERVERERROR,null,null);
-//            }
-//
-//            @Override
-//            public void onFailure(@Nonnull ApolloException e) {
-//                Log.d(TAG,"IsMessengerOnline failed ");
-//                notefyAll(ReturnType.CONNECTIONFAILED,null,null);
-//            }
-//        });
-//    }
     public boolean isNetworkConnected() {
-        ConnectivityManager cm = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) activity.get().getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null;
     }
 

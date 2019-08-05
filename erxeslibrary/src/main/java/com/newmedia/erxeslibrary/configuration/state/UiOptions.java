@@ -12,9 +12,11 @@ public class UiOptions {
     private String logo;
     private int wallpaper;
     private int colorCode;
-    public void load(DataManager dataManager){
-        this.wallpaper = dataManager.getDataI(DataManager.wallpaper) % backgrounds.length;
-        this.colorCode = Color.parseColor(dataManager.getDataS(DataManager.color,"#5629B6"));
+    static public UiOptions getUiOptions(DataManager dataManager){
+        UiOptions uiOptions = new UiOptions();
+        uiOptions.wallpaper = dataManager.getDataI(DataManager.wallpaper) % backgrounds.length;
+        uiOptions.colorCode = Color.parseColor(dataManager.getDataS(DataManager.color,"#5629B6"));
+        return uiOptions;
     }
 
     public int getWalpaper(){
@@ -30,7 +32,7 @@ public class UiOptions {
             return;
         dataManager.setData(DataManager.color, js.getString("color"));
         dataManager.setData(DataManager.wallpaper, js.getString("wallpaper"));
-        this.load(dataManager);
+        UiOptions.getUiOptions(dataManager);
     }
 
 }

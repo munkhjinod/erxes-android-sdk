@@ -18,7 +18,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.newmedia.erxeslibrary.CustomViewPager;
+import com.newmedia.erxeslibrary.customeview.CustomViewPager;
 import com.newmedia.erxeslibrary.configuration.Config;
 import com.newmedia.erxeslibrary.helper.Helper;
 import com.newmedia.erxeslibrary.configuration.ReturnType;

@@ -1,4 +1,4 @@
-package com.newmedia.erxeslibrary;
+package com.newmedia.erxeslibrary.customeview;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

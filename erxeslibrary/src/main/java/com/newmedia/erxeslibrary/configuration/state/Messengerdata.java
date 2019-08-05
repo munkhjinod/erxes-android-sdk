@@ -19,6 +19,12 @@ public class Messengerdata {
     private String formCode;
     private String facebook, twitter, youtube;
 
+    public static Messengerdata getMessengerData(DataManager dataManager){
+        return dataManager.getMessenger();
+    }
+    public static void setMessengerData(DataManager dataManager,Json json){
+            dataManager.setMessengerData(json.toString());
+    }
     public static Messengerdata convert(Json jsonObject, String languageCode) {
         Messengerdata messengerdata = new Messengerdata();
         try {

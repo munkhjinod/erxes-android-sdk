@@ -17,6 +17,8 @@ public class ConnectionState {
         this.customerId = dataManager.getDataS(DataManager.customerId);
         this.integrationId = dataManager.getDataS(DataManager.integrationId);
         this.language = dataManager.getDataS(DataManager.language);
+        this.messengerdata = Messengerdata.getMessengerData(dataManager);
+        this.uiOptions = UiOptions.getUiOptions(dataManager);
     }
 
     public void save(DataManager dataManager) {
