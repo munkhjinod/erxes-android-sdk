@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.apollographql.apollo.rx2.Rx2Apollo;
 import com.newmedia.erxeslibrary.R;
 import com.newmedia.erxeslibrary.configuration.Config;
 import com.newmedia.erxeslibrary.configuration.ErxesRequest;
@@ -41,11 +42,11 @@ public class FaqFragment extends Fragment {
 
     public void init() {
         if (isAdded()) {
-            if (recyclerView != null && config.knowledgeBaseTopic != null && config.knowledgeBaseTopic.categories != null){
-                recyclerView.setAdapter(new FaqAdapter(this.getActivity()));
-                LinearLayoutManager ln = new LinearLayoutManager(this.getContext());
-                recyclerView.setLayoutManager(ln);
-            }
+//            if (recyclerView != null && config.knowledgeBaseTopic != null && config.knowledgeBaseTopic.categories != null){
+//                recyclerView.setAdapter(new FaqAdapter(this.getActivity()));
+//                LinearLayoutManager ln = new LinearLayoutManager(this.getContext());
+//                recyclerView.setLayoutManager(ln);
+//            }
         }
     }
 }

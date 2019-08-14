@@ -82,7 +82,7 @@ public class Language {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        R.string.connnect
+//        R.string.connnect
 
     }
     public static String readTextFile(Context context, @RawRes int id){

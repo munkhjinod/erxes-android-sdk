@@ -5,6 +5,13 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 
 import com.apollographql.apollo.ApolloClient;
+import com.apollographql.apollo.api.Operation;
+import com.apollographql.apollo.api.ResponseField;
+import com.apollographql.apollo.cache.normalized.CacheKey;
+import com.apollographql.apollo.cache.normalized.CacheKeyResolver;
+import com.apollographql.apollo.cache.normalized.NormalizedCacheFactory;
+import com.apollographql.apollo.cache.normalized.sql.ApolloSqlHelper;
+import com.apollographql.apollo.cache.normalized.sql.SqlNormalizedCacheFactory;
 import com.apollographql.apollo.subscription.WebSocketSubscriptionTransport;
 
 import com.newmedia.erxes.basic.type.AttachmentInput;
@@ -25,9 +32,12 @@ import com.newmedia.erxeslibrary.graphqlfunction.SetConnect;
 import com.newmedia.erxeslibrary.helper.JsonCustomTypeAdapter2;
 
 
+import org.jetbrains.annotations.NotNull;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -58,10 +68,41 @@ public class ErxesRequest {
         return apolloClient;
     }
 
-    public void set_client() {
+    public void set_client(Context context) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         LoginParams loginParams = config.getLoginParams();
+
+        // Create the ApolloSqlHelper. Please note that if null is passed in as the name, you will get an in-memory
+        // Sqlite database that will not persist across restarts of the app.
+        ApolloSqlHelper apolloSqlHelper = ApolloSqlHelper.create(context, "db_name");
+
+        // Create NormalizedCacheFactory
+        NormalizedCacheFactory cacheFactory = new SqlNormalizedCacheFactory(apolloSqlHelper);
+
+        // Create the cache key resolver, this example works well when all types have globally unique ids.
+        CacheKeyResolver resolver = new CacheKeyResolver() {
+            @NotNull
+            @Override
+            public CacheKey fromFieldRecordSet(@NotNull ResponseField field, @NotNull Map<String, Object> recordSet) {
+                return formatCacheKey((String) recordSet.get("id"));
+            }
+
+            @NotNull
+            @Override
+            public CacheKey fromFieldArguments(@NotNull ResponseField field, @NotNull Operation.Variables variables) {
+                return formatCacheKey((String) field.resolveArgument("id", variables));
+            }
+
+            private CacheKey formatCacheKey(String id) {
+                if (id == null || id.isEmpty()) {
+                    return CacheKey.NO_KEY;
+                } else {
+                    return CacheKey.from(id);
+                }
+            }
+        };
+
         if (loginParams.WIDGET_API != null) {
             okHttpClient = new OkHttpClient.Builder()
 //                    .connectionSpecs(Collections.singletonList(spec))
@@ -73,6 +114,7 @@ public class ErxesRequest {
                     .build();
             apolloClient = ApolloClient.builder()
                     .serverUrl(loginParams.WIDGET_API)
+                    .normalizedCache(cacheFactory, resolver)
                     .okHttpClient(okHttpClient)
                     .subscriptionTransportFactory(new WebSocketSubscriptionTransport.Factory(loginParams.API, okHttpClient))
 //                    .addCustomTypeAdapter(CustomType.JSON, new JsonCustomTypeAdapter())
@@ -149,12 +191,12 @@ public class ErxesRequest {
         getSup.run();
     }
 
-    public void getFAQ() {
+    public void getFAQ(GetKnowledge.Callback callback) {
         if (!isNetworkConnected()) {
             return;
         }
         GetKnowledge getSup = new GetKnowledge(this, activity.get());
-        getSup.run();
+        getSup.run(callback);
     }
 
     public void getLead() {
@@ -181,8 +223,11 @@ public class ErxesRequest {
     }
 
     public boolean isNetworkConnected() {
-        ConnectivityManager cm = (ConnectivityManager) activity.get().getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm.getActiveNetworkInfo() != null;
+        if (activity != null && activity.get() != null) {
+            ConnectivityManager cm = (ConnectivityManager) activity.get().getSystemService(Context.CONNECTIVITY_SERVICE);
+            return cm.getActiveNetworkInfo() != null;
+        }
+        return false;
     }
 
     public void remove(ErxesObserver e) {

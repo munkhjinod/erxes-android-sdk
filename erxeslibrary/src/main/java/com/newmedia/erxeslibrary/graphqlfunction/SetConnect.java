@@ -40,14 +40,14 @@ public class SetConnect {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        ER.apolloClient.mutate(MessengerConnectMutation.builder()
-                .brandCode(config.brandCode)
-                .email(email)
-                .phone(phone)
-                .isUser(isUser)
-                .data(new Json(customData))
-                .build()
-        ).enqueue(request);
+//        ER.apolloClient.mutate(MessengerConnectMutation.builder()
+//                .brandCode(config.brandCode)
+//                .email(email)
+//                .phone(phone)
+//                .isUser(isUser)
+//                .data(new Json(customData))
+//                .build()
+//        ).enqueue(request);
     }
 
     private ApolloCall.Callback<MessengerConnectMutation.Data> request = new ApolloCall.Callback<MessengerConnectMutation.Data>() {
@@ -55,15 +55,15 @@ public class SetConnect {
         public void onResponse(@NotNull Response<MessengerConnectMutation.Data> response) {
             if (!response.hasErrors()) {
 
-                config.customerId = response.data().messengerConnect().customerId();
-                config.integrationId = response.data().messengerConnect().integrationId();
-
-                dataManager.setData(DataManager.customerId, config.customerId);
-                dataManager.setData(DataManager.integrationId, config.integrationId);
-
-                config.changeLanguage(response.data().messengerConnect().languageCode());
-                Helper.load_uiOptions(response.data().messengerConnect().uiOptions());
-                Helper.load_messengerData(response.data().messengerConnect().messengerData());
+//                config.customerId = response.data().messengerConnect().customerId();
+//                config.integrationId = response.data().messengerConnect().integrationId();
+//
+//                dataManager.setData(DataManager.customerId, config.customerId);
+//                dataManager.setData(DataManager.integrationId, config.integrationId);
+//
+//                config.changeLanguage(response.data().messengerConnect().languageCode());
+//                Helper.load_uiOptions(response.data().messengerConnect().uiOptions());
+//                Helper.load_messengerData(response.data().messengerConnect().messengerData());
 
 //                getLead();
 

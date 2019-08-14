@@ -33,14 +33,14 @@ public class Insertnewmess {
     }
     public void run( String message, List<AttachmentInput> list){
         this.message = message;
-        ER.apolloClient.mutate(InsertMessageMutation.builder()
-                .integrationId(config.integrationId)
-                .customerId(config.customerId)
-                .message(message)
-                .conversationId("")
-                .attachments(list)
-                .build())
-                .enqueue(request);
+//        ER.apolloClient.mutate(InsertMessageMutation.builder()
+//                .integrationId(config.integrationId)
+//                .customerId(config.customerId)
+//                .message(message)
+//                .conversationId("")
+//                .attachments(list)
+//                .build())
+//                .enqueue(request);
     }
     private ApolloCall.Callback<InsertMessageMutation.Data> request = new ApolloCall.Callback<InsertMessageMutation.Data>() {
         @Override
@@ -53,11 +53,11 @@ public class Insertnewmess {
 
                 Conversation conversation = Conversation.update(response.data().insertMessage(),message,config);
                 ConversationMessage a = ConversationMessage.convert(response.data().insertMessage(),message,config);
-                config.conversations.add(conversation);
-                config.conversationMessages.add(a);
-                Intent intent2 = new Intent(context, ListenerService.class);
-                intent2.putExtra("id",config.conversationId);
-                context.startService(intent2);
+//                config.conversations.add(conversation);
+//                config.conversationMessages.add(a);
+//                Intent intent2 = new Intent(context, ListenerService.class);
+//                intent2.putExtra("id",config.conversationId);
+//                context.startService(intent2);
 //                    ListenerService.conversation_listen(config.conversationId);
 
                 ER.notefyAll(ReturnType.Mutation_new,response.data().insertMessage().conversationId(),null);

@@ -26,18 +26,18 @@ public class Getmess {
 
     public void run(String conversationid){
         this.conversationid = conversationid;
-        ER.apolloClient.query(MessagesQuery.builder()
-                .conversationId(conversationid)
-                .build()).enqueue(request);
+//        ER.apolloClient.query(MessagesQuery.builder()
+//                .conversationId(conversationid)
+//                .build()).enqueue(request);
     }
     private ApolloCall.Callback<MessagesQuery.Data> request = new ApolloCall.Callback<MessagesQuery.Data>() {
         @Override
         public void onResponse(@NotNull Response<MessagesQuery.Data> response) {
 
             if(response.data().messages().size() > 0) {
-                if (config.conversationMessages.size() > 0)
-                    config.conversationMessages.clear();
-                config.conversationMessages.addAll(ConversationMessage.convert(response,conversationid));
+//                if (config.conversationMessages.size() > 0)
+//                    config.conversationMessages.clear();
+//                config.conversationMessages.addAll(ConversationMessage.convert(response,conversationid));
                 ER.notefyAll(ReturnType.Getmessages,conversationid,null);
             }
         }

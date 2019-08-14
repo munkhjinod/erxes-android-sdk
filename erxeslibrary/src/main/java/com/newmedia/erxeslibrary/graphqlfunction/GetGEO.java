@@ -50,10 +50,10 @@ public class GetGEO {
                     public void run() {
                         try {
                             if (response.body() != null) {
-                                config.geoResponse = response.body().string();
+//                                config.geoResponse = response.body().string();
 //                                    config.geo = Geo.convert(response.body().string());
                             }
-                        } catch (IOException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }

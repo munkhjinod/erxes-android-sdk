@@ -90,7 +90,7 @@ public class ConversationMessage {
             b.attachments = array.toString();
         }
         b.internal = false;
-        b.customerId = config.customerId;//Config.customerId;
+//        b.customerId = config.customerId;//Config.customerId;
         return b;
     }
     static public ConversationMessage convert(ConversationMessageInsertedSubscription.ConversationMessageInserted a){

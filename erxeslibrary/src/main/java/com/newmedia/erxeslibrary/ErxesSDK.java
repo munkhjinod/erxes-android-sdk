@@ -1,5 +1,6 @@
 package com.newmedia.erxeslibrary;
 
+import android.content.Context;
 import android.content.Intent;
 
 import com.newmedia.erxeslibrary.configuration.Config;
@@ -11,18 +12,19 @@ import org.json.JSONObject;
 public class ErxesSDK {
     static private DataManager dataManager;
     static void initialize(Config config){
-        config = Config.getInstance(this);
-        erxesRequest = ErxesRequest.getInstance(config);
+//        config = Config.getInstance(this);
+//        erxesRequest = ErxesRequest.getInstance(config);
     }
 
-    static public void start() {
+    static public void start(Context context) {
+        DataManager dataManager = DataManager.getInstance(context);
         dataManager.setData(DataManager.isUser, false);
         dataManager.setData(DataManager.email, null);
         dataManager.setData(DataManager.phone, null);
         dataManager.setData(DataManager.customData, null);
-        Intent a = new Intent(activity.get(), ErxesActivity.class);
+        Intent a = new Intent(context, ErxesActivity.class);
         a.putExtra("hasData",false);
-        activity.get().startActivity(a);
+        context.startActivity(a);
     }
 
     static public void start(String email, String phone, JSONObject jsonObject) {
@@ -30,12 +32,12 @@ public class ErxesSDK {
         dataManager.setData(DataManager.email, email);
         dataManager.setData(DataManager.phone, phone);
         dataManager.setData(DataManager.customData, jsonObject.toString());
-        Intent a = new Intent(activity.get(), ErxesActivity.class);
-        a.putExtra("hasData",true);
-        a.putExtra("customData", jsonObject.toString());
-        a.putExtra("mEmail",email);
-        a.putExtra("mPhone",phone);
-        activity.get().startActivity(a);
+//        Intent a = new Intent(activity.get(), ErxesActivity.class);
+//        a.putExtra("hasData",true);
+//        a.putExtra("customData", jsonObject.toString());
+//        a.putExtra("mEmail",email);
+//        a.putExtra("mPhone",phone);
+//        activity.get().startActivity(a);
 //        erxesRequest.add(this);
     }
 }

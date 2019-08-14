@@ -30,30 +30,30 @@ public class Getconv {
 
     }
     public void run(){
-        config.getMessengerParams().customerId
-        ER.getApolloClient().query(ConversationsQuery.builder()
-                        .integrationId(config.integrationId)
-                        .customerId(config.customerId).build())
-                .enqueue(request);
+//        config.getMessengerParams().customerId
+//        ER.getApolloClient().query(ConversationsQuery.builder()
+//                        .integrationId(config.integrationId)
+//                        .customerId(config.customerId).build())
+//                .enqueue(request);
     }
     private ApolloCall.Callback<ConversationsQuery.Data> request = new ApolloCall.Callback<ConversationsQuery.Data>() {
         @Override
         public void onResponse(@NotNull Response<ConversationsQuery.Data> response) {
 
-            if(response.data().conversations().size()>0) {
-                if (config.conversations != null && config.conversations.size() > 0)
-                    config.conversations.clear();
-                if (config.conversations != null) {
-                    for (Conversation conversation : Conversation.convert(response,config)) {
-                        if (conversation.status.equalsIgnoreCase("open"))
-                        config.conversations.add(conversation);
-                    }
-                }
-
-                Log.d(TAG,"Getconversation ok ");
-            }
-            else
-                Log.d(TAG,"Getconversation 0 ");
+//            if(response.data().conversations().size()>0) {
+//                if (config.conversations != null && config.conversations.size() > 0)
+//                    config.conversations.clear();
+//                if (config.conversations != null) {
+//                    for (Conversation conversation : Conversation.convert(response,config)) {
+//                        if (conversation.status.equalsIgnoreCase("open"))
+//                        config.conversations.add(conversation);
+//                    }
+//                }
+//
+//                Log.d(TAG,"Getconversation ok ");
+//            }
+//            else
+//                Log.d(TAG,"Getconversation 0 ");
             ER.notefyAll(ReturnType.Getconversation,null,null);
         }
 

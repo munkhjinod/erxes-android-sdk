@@ -18,14 +18,17 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.newmedia.erxeslibrary.configuration.state.Messengerdata;
 import com.newmedia.erxeslibrary.customeview.CustomViewPager;
 import com.newmedia.erxeslibrary.configuration.Config;
+import com.newmedia.erxeslibrary.graphqlfunction.GetKnowledge;
 import com.newmedia.erxeslibrary.helper.Helper;
 import com.newmedia.erxeslibrary.configuration.ReturnType;
 import com.newmedia.erxeslibrary.configuration.ErxesRequest;
 import com.newmedia.erxeslibrary.configuration.ListenerService;
 import com.newmedia.erxeslibrary.DataManager;
 import com.newmedia.erxeslibrary.ErxesObserver;
+import com.newmedia.erxeslibrary.model.KnowledgeBaseTopic;
 import com.newmedia.erxeslibrary.ui.conversations.adapter.SupportAdapter;
 import com.newmedia.erxeslibrary.ui.conversations.adapter.TabAdapter;
 import com.newmedia.erxeslibrary.ui.conversations.fragments.FaqFragment;
@@ -150,7 +153,7 @@ public class ConversationListActivity extends AppCompatActivity implements Erxes
         erxesRequest.getLead();
         erxesRequest.getConversations();
         erxesRequest.getGEO();
-        config.conversationId = null;
+//        config.conversationId = null;
 
         dataManager.setData("chat_is_going", true);
 
@@ -160,7 +163,7 @@ public class ConversationListActivity extends AppCompatActivity implements Erxes
 //                .findDrawableByLayerId(R.id.background);
 //        gradientDrawable.setColor(config.colorCode);
 //        info_header.setBackground(layerDrawable);
-        info_header.setBackgroundColor(config.colorCode);
+        info_header.setBackgroundColor(config.getState().getUiOptions().getColor());
 
         chat_is_going = true;
     }
@@ -202,17 +205,17 @@ public class ConversationListActivity extends AppCompatActivity implements Erxes
 
         viewpager.setAdapter(tabAdapter);
         tabLayout.setupWithViewPager(viewpager);
-        tabLayout.setSelectedTabIndicatorColor(config.colorCode);
+        tabLayout.setSelectedTabIndicatorColor(config.getState().getUiOptions().getColor());
 
-        if (config.knowledgeBaseTopic != null && config.knowledgeBaseTopic.categories != null) {
-            tabLayout.setVisibility(View.VISIBLE);
-        }
+//        if (config.getState().getMessengerdata().getKnowledgeBaseTopicId() != null && config.knowledgeBaseTopic.categories != null) {
+//            tabLayout.setVisibility(View.VISIBLE);
+//        }
 
         if (getIntent().getBooleanExtra("isFromLogin", false)) {
             init();
         }
 
-        supporterView.setAdapter(new SupportAdapter(this,config.supporters));
+//        supporterView.setAdapter(new SupportAdapter(this,config.supporters));
         LinearLayoutManager supManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         supporterView.setLayoutManager(supManager);
         Helper.display_configure(this, container, "#66000000");
@@ -233,28 +236,34 @@ public class ConversationListActivity extends AppCompatActivity implements Erxes
 
 
     private void init() {
-        if (config.messengerdata != null && config.messengerdata.getKnowledgeBaseTopicId() != null)
-            erxesRequest.getFAQ();
-        date.setText(config.now());
-        if (config.messengerdata.getMessages() != null && config.messengerdata.getMessages().getGreetings() != null) {
-            title.setText(config.messengerdata.getMessages().getGreetings().getTitle());
-            welcometext.setText(config.messengerdata.getMessages().getGreetings().getMessage());
+        Messengerdata messengerdata = config.getState().getMessengerdata();
+        if (messengerdata != null && messengerdata.getKnowledgeBaseTopicId() != null)
+            erxesRequest.getFAQ(new GetKnowledge.Callback() {
+                @Override
+                public void onResponse(KnowledgeBaseTopic knowledgeBaseTopic) {
+
+                }
+            });
+//        date.setText(config.now());
+        if (messengerdata.getMessages() != null && messengerdata.getMessages().getGreetings() != null) {
+            title.setText(messengerdata.getMessages().getGreetings().getTitle());
+            welcometext.setText(messengerdata.getMessages().getGreetings().getMessage());
         }
-        if (config.messengerdata.getFacebook() != null && config.messengerdata.getFacebook().startsWith("http"))
+        if (messengerdata.getFacebook() != null && messengerdata.getFacebook().startsWith("http"))
             this.findViewById(R.id.fbcontainer).setVisibility(View.VISIBLE);
         else this.findViewById(R.id.fbcontainer).setVisibility(View.GONE);
 
-        if (config.messengerdata.getTwitter() != null && config.messengerdata.getTwitter().startsWith("http"))
+        if (messengerdata.getTwitter() != null && messengerdata.getTwitter().startsWith("http"))
             this.findViewById(R.id.twcontainer).setVisibility(View.VISIBLE);
         else this.findViewById(R.id.twcontainer).setVisibility(View.GONE);
 
-        if (config.messengerdata.getYoutube() != null && config.messengerdata.getYoutube().startsWith("http"))
+        if (messengerdata.getYoutube() != null && messengerdata.getYoutube().startsWith("http"))
             this.findViewById(R.id.ytcontainer).setVisibility(View.VISIBLE);
         else this.findViewById(R.id.ytcontainer).setVisibility(View.GONE);
     }
 
     public void start_new_conversation(View v) {
-        config.conversationId = null;
+//        config.conversationId = null;
         Intent a = new Intent(this, MessageActivity.class);
         startActivity(a);
     }
@@ -279,19 +288,21 @@ public class ConversationListActivity extends AppCompatActivity implements Erxes
                     @Override
                     public void run() {
                         v.setBackgroundColor(Color.parseColor("#00000000"));
+                        Messengerdata messengerdata = config.getState().getMessengerdata();
+
                         if (v.getId() == R.id.logout) {
                             logout(null);
                         } else if (v.getId() == R.id.fbcontainer) {
-                            if (config.messengerdata.getFacebook() != null && config.messengerdata.getFacebook().contains("http")) {
-                                startFacebook(config.messengerdata.getFacebook());
+                            if (messengerdata.getFacebook() != null && messengerdata.getFacebook().contains("http")) {
+                                startFacebook(messengerdata.getFacebook());
                             }
                         } else if (v.getId() == R.id.twcontainer) {
-                            if (config.messengerdata.getTwitter() != null && config.messengerdata.getTwitter().contains("http")) {
-                                startTwitter(config.messengerdata.getTwitter());
+                            if (messengerdata.getTwitter() != null && messengerdata.getTwitter().contains("http")) {
+                                startTwitter(messengerdata.getTwitter());
                             }
                         } else if (v.getId() == R.id.ytcontainer) {
-                            if (config.messengerdata.getYoutube() != null && config.messengerdata.getYoutube().contains("http")) {
-                                startYoutube(config.messengerdata.getYoutube());
+                            if (messengerdata.getYoutube() != null && messengerdata.getYoutube().contains("http")) {
+                                startYoutube(messengerdata.getYoutube());
                             }
                         }
                     }

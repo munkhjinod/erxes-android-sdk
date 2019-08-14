@@ -30,18 +30,18 @@ public class GetLead {
     }
 
     public void run() {
-        if (!TextUtils.isEmpty(config.messengerdata.getFormCode()))
-            ER.apolloClient.mutate(FormConnectMutation.builder()
-                    .brandCode(config.brandCode)
-                    .formCode(config.messengerdata.getFormCode())
-                    .build()).enqueue(formConnect);
+//        if (!TextUtils.isEmpty(config.messengerdata.getFormCode()))
+//            ER.apolloClient.mutate(FormConnectMutation.builder()
+//                    .brandCode(config.brandCode)
+//                    .formCode(config.messengerdata.getFormCode())
+//                    .build()).enqueue(formConnect);
     }
 
     private ApolloCall.Callback<FormConnectMutation.Data> formConnect = new ApolloCall.Callback<FormConnectMutation.Data>() {
         @Override
         public void onResponse(@NotNull Response<FormConnectMutation.Data> response) {
             if (!response.hasErrors()) {
-                config.formConnect = FormConnect.convert(response);
+//                config.formConnect = FormConnect.convert(response);
                 ER.notefyAll(ReturnType.LEAD, null, null);
             } else {
                 Log.e(TAG, "onResponse: " + response.errors().get(0).message());

@@ -27,24 +27,24 @@ public class GetSup {
     }
 
     public void run() {
-        ER.apolloClient.query(MessengerSupportersQuery.builder().integ(config.integrationId).build())
-                .enqueue(request);
+//        ER.apolloClient.query(MessengerSupportersQuery.builder().integ(config.integrationId).build())
+//                .enqueue(request);
     }
 
     private ApolloCall.Callback<MessengerSupportersQuery.Data> request = new ApolloCall.Callback<MessengerSupportersQuery.Data>() {
         @Override
         public void onResponse(@NotNull final Response<MessengerSupportersQuery.Data> response) {
-            if (!response.hasErrors()) {
-                if (config.supporters != null && config.supporters.size() > 0)
-                    config.supporters.clear();
-                if (config.supporters != null) {
-                    config.supporters.addAll(User.convert(response.data().messengerSupporters()));
-                }
-                ER.notefyAll(ReturnType.GetSupporters, null, null);
-            } else {
-                Log.d(TAG, "errors " + response.errors().toString());
-                ER.notefyAll(ReturnType.SERVERERROR, null, response.errors().get(0).message());
-            }
+//            if (!response.hasErrors()) {
+//                if (config.supporters != null && config.supporters.size() > 0)
+//                    config.supporters.clear();
+//                if (config.supporters != null) {
+//                    config.supporters.addAll(User.convert(response.data().messengerSupporters()));
+//                }
+//                ER.notefyAll(ReturnType.GetSupporters, null, null);
+//            } else {
+//                Log.d(TAG, "errors " + response.errors().toString());
+//                ER.notefyAll(ReturnType.SERVERERROR, null, response.errors().get(0).message());
+//            }
         }
 
         @Override

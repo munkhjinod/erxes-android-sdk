@@ -2,24 +2,19 @@ package com.newmedia.erxeslibrary.configuration;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;
 
 import com.newmedia.erxes.basic.type.FieldValueInput;
 import com.newmedia.erxeslibrary.DataManager;
 import com.newmedia.erxeslibrary.configuration.params.LoginParams;
-import com.newmedia.erxeslibrary.configuration.state.ConnectionState;
-import com.newmedia.erxeslibrary.configuration.state.Messengerdata;
+import com.newmedia.erxeslibrary.configuration.state.State;
 import com.newmedia.erxeslibrary.model.Conversation;
 import com.newmedia.erxeslibrary.model.ConversationMessage;
 import com.newmedia.erxeslibrary.model.FormConnect;
 import com.newmedia.erxeslibrary.model.Geo;
 import com.newmedia.erxeslibrary.model.KnowledgeBaseTopic;
 import com.newmedia.erxeslibrary.model.User;
-import com.newmedia.erxeslibrary.ui.login.ErxesActivity;
-
-import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -31,7 +26,7 @@ public class Config {
     //static variables
     static private Config config;
     private LoginParams loginParams;
-    private ConnectionState connectionState;
+    private State state;
     private String conversationId = null;
 //    public boolean isMessengerOnline = false, notifyCustomer;
     private DataManager dataManager;
@@ -74,8 +69,8 @@ public class Config {
         dataManager = DataManager.getInstance(context.get());
         this.loginParams = new LoginParams();
         this.loginParams.load(dataManager);
-        this.connectionState = new ConnectionState();
-        this.connectionState.load(dataManager);
+        this.state = new State();
+        this.state.load(dataManager);
 //        changeLanguage(language);
     }
 
@@ -84,7 +79,7 @@ public class Config {
     }
 
     public boolean Logout() {
-        messengerParams.logOut(dataManager);
+//        messengerParams.logOut(dataManager);
         return true;
     }
 
@@ -94,10 +89,12 @@ public class Config {
     }
 
     public boolean messenger_status_check() {
-        return isNetworkConnected() && isMessengerOnline;
+        return isNetworkConnected(); //&& isMessengerOnline;
     }
 
-
+    public State getState() {
+        return state;
+    }
 
     public static class Builder {
         private String brand;

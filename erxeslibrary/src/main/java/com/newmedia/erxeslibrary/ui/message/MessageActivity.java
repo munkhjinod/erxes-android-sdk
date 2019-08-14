@@ -26,7 +26,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.newmedia.erxeslibrary.DataManager;
 import com.newmedia.erxeslibrary.configuration.Config;
+import com.newmedia.erxeslibrary.configuration.state.Messengerdata;
 import com.newmedia.erxeslibrary.helper.Helper;
 import com.newmedia.erxeslibrary.configuration.ReturnType;
 import com.newmedia.erxeslibrary.configuration.ErxesRequest;
@@ -54,7 +56,7 @@ public class MessageActivity extends AppCompatActivity implements ErxesObserver 
     private Point size;
 
     private GFilePart gFilePart;
-
+    private String conversationId;
     private final String TAG = "MESSAGEACTIVITY";
     @Override
     public void notify(final int returnType, String conversationId,  String message) {
@@ -138,15 +140,15 @@ public class MessageActivity extends AppCompatActivity implements ErxesObserver 
         names.setVisibility(View.VISIBLE);
     }
     private void header_profile_change(){
-        if(config.supporters.size() > 0)
-            isMessenOnlineImage.setVisibility(View.VISIBLE);
-        else
-            names.setVisibility(View.INVISIBLE);
-
-        names.setText("");
-
-        if(config.supporters.size() > 0)  bind(config.supporters.get(0),profile1); else profile1.setVisibility(View.INVISIBLE);
-        if(config.supporters.size() > 1)  bind(config.supporters.get(1),profile2); else profile2.setVisibility(View.INVISIBLE);
+//        if(config.supporters.size() > 0)
+//            isMessenOnlineImage.setVisibility(View.VISIBLE);
+//        else
+//            names.setVisibility(View.INVISIBLE);
+//
+//        names.setText("");
+//
+//        if(config.supporters.size() > 0)  bind(config.supporters.get(0),profile1); else profile1.setVisibility(View.INVISIBLE);
+//        if(config.supporters.size() > 1)  bind(config.supporters.get(1),profile2); else profile2.setVisibility(View.INVISIBLE);
 
         isMessenOnlineImage.setText(config.messenger_status_check()?R.string.online:R.string.offline);
 
@@ -193,7 +195,7 @@ public class MessageActivity extends AppCompatActivity implements ErxesObserver 
         edittext_chatbox = this.findViewById(R.id.edittext_chatbox);
         mMessageRecycler = this.findViewById(R.id.reyclerview_message_list);
 
-        this.findViewById(R.id.info_header).setBackgroundColor(config.colorCode);
+//        this.findViewById(R.id.info_header).setBackgroundColor(config.colorCode);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -205,9 +207,8 @@ public class MessageActivity extends AppCompatActivity implements ErxesObserver 
         this.findViewById(R.id.logout).setOnTouchListener(touchListener);
         this.findViewById(R.id.back).setOnTouchListener(touchListener);
 
-        int index = Integer.getInteger(config.wallpaper,-1);
-        if(index > -1 && index < 5)
-            mMessageRecycler.setBackgroundResource(Helper.backgrounds[index]);
+
+        mMessageRecycler.setBackgroundResource(config.getState().getUiOptions().getWalpaper());
 
 
 
@@ -223,20 +224,19 @@ public class MessageActivity extends AppCompatActivity implements ErxesObserver 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         load_findViewByid();
         mMessageRecycler.setLayoutManager(linearLayoutManager);
-
-
-        if(config.conversationId != null) {
-            linearLayoutManager.setStackFromEnd(true);
-            for (int i = 0 ; i < config.conversations.size(); i ++) {
-                if (config.conversations.get(i)._id.equals(config.conversationId)) {
-                    config.conversations.get(i).isread = true;
-                    break;
-                }
-            }
-            subscribe_conversation();
-        } else {
-            mMessageRecycler.setAdapter(new MessageListAdapter(this,new ArrayList<ConversationMessage>()));
-        }
+//
+//        if(config.conversationId != null) {
+//            linearLayoutManager.setStackFromEnd(true);
+//            for (int i = 0 ; i < config.conversations.size(); i ++) {
+//                if (config.conversations.get(i)._id.equals(config.conversationId)) {
+//                    config.conversations.get(i).isread = true;
+//                    break;
+//                }
+//            }
+//            subscribe_conversation();
+//        } else {
+//            mMessageRecycler.setAdapter(new MessageListAdapter(this,new ArrayList<ConversationMessage>()));
+//        }
         header_profile_change();
 
         if (shouldAskPermissions()) {
@@ -244,8 +244,8 @@ public class MessageActivity extends AppCompatActivity implements ErxesObserver 
         }
     }
     private void subscribe_conversation(){
-        mMessageRecycler.setAdapter(new MessageListAdapter(this,config.conversationMessages));
-        erxesRequest.getMessages(config.conversationId);
+//        mMessageRecycler.setAdapter(new MessageListAdapter(this,config.conversationMessages));
+//        erxesRequest.getMessages(config.conversationId);
         subscription();
     }
     public void Click_back(View v){
@@ -260,20 +260,20 @@ public class MessageActivity extends AppCompatActivity implements ErxesObserver 
             Snackbar.make(container, R.string.cantconnect, Snackbar.LENGTH_SHORT).show();
             return;
         }
-        if(!edittext_chatbox.getText().toString().equalsIgnoreCase("")) {
-            if (config.conversationId != null) {
-                erxesRequest.InsertMessage(edittext_chatbox.getText().toString(), config.conversationId, gFilePart.get());
-            } else {
-                erxesRequest.InsertNewMessage(edittext_chatbox.getText().toString(), gFilePart.get());
-            }
-            edittext_chatbox.setText("");
-        }
+//        if(!edittext_chatbox.getText().toString().equalsIgnoreCase("")) {
+//            if (config.conversationId != null) {
+//                erxesRequest.InsertMessage(edittext_chatbox.getText().toString(), config.conversationId, gFilePart.get());
+//            } else {
+//                erxesRequest.InsertNewMessage(edittext_chatbox.getText().toString(), gFilePart.get());
+//            }
+//            edittext_chatbox.setText("");
+//        }
     };
     public void refreshItems() {
-        if(config.conversationId != null)
-            erxesRequest.getMessages(config.conversationId);
-        else
-            swipeRefreshLayout.setRefreshing(false);
+//        if(config.conversationId != null)
+//            erxesRequest.getMessages(config.conversationId);
+//        else
+//            swipeRefreshLayout.setRefreshing(false);
 
     }
 

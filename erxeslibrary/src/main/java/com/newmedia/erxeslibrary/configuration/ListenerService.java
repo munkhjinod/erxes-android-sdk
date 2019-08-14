@@ -96,22 +96,22 @@ public class ListenerService extends Service {
             if (bundle != null)
                 id = bundle.getString("id", null);
         }
-        if (id == null) {
-            DataManager dataManager;
-            dataManager = DataManager.getInstance(this);
-            Log.d(TAG, "start " + config.conversations.size());
-            if (disposables.size() != config.conversations.size()) {
-                disposables.clear();
-                for (int i = 0; i < config.conversations.size(); i++) {
-                    conversation_listen(config.conversations.get(i)._id);
-                }
-            }
-
-
-        } else {
-            conversation_listen(id);
-            Log.e(TAG, "start only one");
-        }
+//        if (id == null) {
+//            DataManager dataManager;
+//            dataManager = DataManager.getInstance(this);
+//            Log.d(TAG, "start " + config.conversations.size());
+//            if (disposables.size() != config.conversations.size()) {
+//                disposables.clear();
+//                for (int i = 0; i < config.conversations.size(); i++) {
+//                    conversation_listen(config.conversations.get(i)._id);
+//                }
+//            }
+//
+//
+//        } else {
+//            conversation_listen(id);
+//            Log.e(TAG, "start only one");
+//        }
 
         return super.onStartCommand(intent, flags, startId);
 
@@ -188,16 +188,16 @@ public class ListenerService extends Service {
 
                                             }
 
-                                            config.conversationMessages.add(ConversationMessage.convert(response.data().conversationMessageInserted()));
-
-                                            if (response.data().conversationMessageInserted() != null)
-                                                for (int i = 0; i < config.conversations.size(); i++) {
-                                                    if (config.conversations.get(i)._id.equals(response.data().conversationMessageInserted().conversationId())) {
-                                                        config.conversations.get(i).content = response.data().conversationMessageInserted().content();
-                                                        config.conversations.get(i).isread = false;
-                                                    }
-                                                }
-                                            Log.e(TAG, "insert to database");
+//                                            config.conversationMessages.add(ConversationMessage.convert(response.data().conversationMessageInserted()));
+//
+//                                            if (response.data().conversationMessageInserted() != null)
+//                                                for (int i = 0; i < config.conversations.size(); i++) {
+//                                                    if (config.conversations.get(i)._id.equals(response.data().conversationMessageInserted().conversationId())) {
+//                                                        config.conversations.get(i).content = response.data().conversationMessageInserted().content();
+//                                                        config.conversations.get(i).isread = false;
+//                                                    }
+//                                                }
+//                                            Log.e(TAG, "insert to database");
                                         }
                                         Log.e(TAG, "onnext " + conversationId);
 

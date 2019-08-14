@@ -61,13 +61,13 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationHo
         @Override
         public void onClick(View view) {
             Intent a = new Intent(activity, MessageActivity.class);
-            config.conversationId = conversationList.get((int) view.getTag())._id;
-            if (config.conversationMessages != null && config.conversationMessages.size() > 0) {
-                config.conversationMessages.clear();
-            }
-            if (config.conversationMessages != null) {
-                config.conversationMessages.addAll(conversationList.get((int) view.getTag()).conversationMessages);
-            }
+//            config.conversationId = conversationList.get((int) view.getTag())._id;
+//            if (config.conversationMessages != null && config.conversationMessages.size() > 0) {
+//                config.conversationMessages.clear();
+//            }
+//            if (config.conversationMessages != null) {
+//                config.conversationMessages.addAll(conversationList.get((int) view.getTag()).conversationMessages);
+//            }
             activity.startActivity(a);
         }
     };
@@ -110,7 +110,7 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationHo
                         .into(holder.circleImageView);
 
             Long createDate = Long.valueOf(message.createdAt);
-            holder.date.setText(config.convert_datetime(createDate));
+//            holder.date.setText(config.convert_datetime(createDate));
             holder.parent.setTag(position);
         } else {
             Glide.with(activity).load(R.drawable.avatar)
@@ -118,7 +118,7 @@ public class ConversationListAdapter extends RecyclerView.Adapter<ConversationHo
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(holder.circleImageView);
             Long createDate = Long.valueOf(conversationList.get(position).date);
-            holder.date.setText(config.convert_datetime(createDate));
+//            holder.date.setText(config.convert_datetime(createDate));
             holder.parent.setTag(position);
         }
 

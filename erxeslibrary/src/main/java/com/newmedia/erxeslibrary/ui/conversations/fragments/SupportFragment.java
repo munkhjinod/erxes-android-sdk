@@ -105,11 +105,11 @@ public class SupportFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
-        ConversationListAdapter adapter = new ConversationListAdapter(this.getActivity(),config.conversations);
-        recyclerView.setAdapter(adapter);
-        if (0 == adapter.conversationList.size() && !config.isFirstStart) {
-            start_new_conversation(null);
-        }
+//        ConversationListAdapter adapter = new ConversationListAdapter(this.getActivity(),config.conversations);
+//        recyclerView.setAdapter(adapter);
+//        if (0 == adapter.conversationList.size() && !config.isFirstStart) {
+//            start_new_conversation(null);
+//        }
 
 //        erxesRequest.getConversations();
         setLead();
@@ -118,33 +118,33 @@ public class SupportFragment extends Fragment {
     }
 
     public void setLead() {
-        if (isAdded() && config.formConnect != null) {
-            Json leadObject = config.formConnect.getLead().getCallout();
-            if (leadObject != null) {
-                leadCardView.setVisibility(View.VISIBLE);
-                if (!TextUtils.isEmpty(leadObject.getString("featuredImage")) &&
-                        leadObject.getString("featuredImage").contains("http")) {
-                    Glide.with(this)
-                            .load(leadObject.getString("featuredImage"))
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .into(imageLead);
-                } else {
-                    imageLead.setVisibility(View.GONE);
-                }
-                titleLead.setText(leadObject.getString("title"));
-                descriptionLead.setText(leadObject.getString("body"));
-                textJoinLead.setText(leadObject.getString("buttonText"));
-//                    joinLeadCardView.setCardBackgroundColor(Color.parseColor(config.formConnect.getLead().getThemeColor()));
-                initLead();
-            }
-        }
+//        if (isAdded() && config.formConnect != null) {
+//            Json leadObject = config.formConnect.getLead().getCallout();
+//            if (leadObject != null) {
+//                leadCardView.setVisibility(View.VISIBLE);
+//                if (!TextUtils.isEmpty(leadObject.getString("featuredImage")) &&
+//                        leadObject.getString("featuredImage").contains("http")) {
+//                    Glide.with(this)
+//                            .load(leadObject.getString("featuredImage"))
+//                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                            .into(imageLead);
+//                } else {
+//                    imageLead.setVisibility(View.GONE);
+//                }
+//                titleLead.setText(leadObject.getString("title"));
+//                descriptionLead.setText(leadObject.getString("body"));
+//                textJoinLead.setText(leadObject.getString("buttonText"));
+////                    joinLeadCardView.setCardBackgroundColor(Color.parseColor(config.formConnect.getLead().getThemeColor()));
+//                initLead();
+//            }
+//        }
     }
 
     public void setLeadAgain() {
         getLeadCardView.setVisibility(View.GONE);
         leadCardView.setVisibility(View.VISIBLE);
-        titleLead.setText(config.formConnect.getLead().getTitle());
-        descriptionLead.setText(config.formConnect.getLeadIntegration().getFormData().getString("thankContent"));
+//        titleLead.setText(config.formConnect.getLead().getTitle());
+//        descriptionLead.setText(config.formConnect.getLeadIntegration().getFormData().getString("thankContent"));
         textJoinLead.setText("Create new");
         imageLead.setVisibility(View.GONE);
 //                    joinLeadCardView.setCardBackgroundColor(Color.parseColor(config.formConnect.getLead().getThemeColor()));
@@ -162,31 +162,31 @@ public class SupportFragment extends Fragment {
     }
 
     private void initGetLead() {
-        if (!TextUtils.isEmpty(config.formConnect.getLead().getTitle())) {
-            getTitleLead.setText(config.formConnect.getLead().getTitle());
-        } else {
-            getTitleLead.setVisibility(View.GONE);
-        }
-        if (!TextUtils.isEmpty(config.formConnect.getLead().getDescription())) {
-            getDescriptionLead.setText(config.formConnect.getLead().getDescription());
-        } else {
-            getDescriptionLead.setVisibility(View.GONE);
-        }
-
-        values = new String[config.formConnect.getLead().getFields().size()];
-
-        getRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        getRecyclerView.setHasFixedSize(true);
-        leadAdapter = new LeadAdapter(config.formConnect.getLead().getFields(), this);
-        getRecyclerView.setAdapter(leadAdapter);
-
-        getTextJoinLead.setText(config.formConnect.getLead().getButtonText());
-        getJoinLeadCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkRequired();
-            }
-        });
+//        if (!TextUtils.isEmpty(config.formConnect.getLead().getTitle())) {
+//            getTitleLead.setText(config.formConnect.getLead().getTitle());
+//        } else {
+//            getTitleLead.setVisibility(View.GONE);
+//        }
+//        if (!TextUtils.isEmpty(config.formConnect.getLead().getDescription())) {
+//            getDescriptionLead.setText(config.formConnect.getLead().getDescription());
+//        } else {
+//            getDescriptionLead.setVisibility(View.GONE);
+//        }
+//
+//        values = new String[config.formConnect.getLead().getFields().size()];
+//
+//        getRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+//        getRecyclerView.setHasFixedSize(true);
+//        leadAdapter = new LeadAdapter(config.formConnect.getLead().getFields(), this);
+//        getRecyclerView.setAdapter(leadAdapter);
+//
+//        getTextJoinLead.setText(config.formConnect.getLead().getButtonText());
+//        getJoinLeadCardView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                checkRequired();
+//            }
+//        });
     }
 
     public void setCheckValue(int parentPosition) {
@@ -200,79 +200,79 @@ public class SupportFragment extends Fragment {
             int pointer = 0;
             for (int i = 0; i < booleans.length; i++) {
                 if (booleans[i]) {
-                    resultChecks[pointer++] = config.formConnect.getLead().getFields().get(parentPosition).getOptions().get(i);
+//                    resultChecks[pointer++] = config.formConnect.getLead().getFields().get(parentPosition).getOptions().get(i);
                 }
             }
         }
     }
 
     public void setRadioValue(int parentPosition, int checkedPosition) {
-        values[parentPosition] = config.formConnect.getLead().getFields().get(parentPosition).getOptions().get(checkedPosition);
+//        values[parentPosition] = config.formConnect.getLead().getFields().get(parentPosition).getOptions().get(checkedPosition);
     }
 
     private void checkRequired() {
         boolean isDone = true;
         int position = 0;
-        for (int i = 0; i < config.formConnect.getLead().getFields().size(); i++) {
-            if (config.formConnect.getLead().getFields().get(i).isRequired() &&
-                    TextUtils.isEmpty(values[i])) {
-                position = i;
-                isDone = false;
-                break;
-            }
-        }
-        if (isDone) {
-            sendLead();
-        } else {
-            if (config.formConnect.getLead().getFields().get(position).getType() != null) {
-                if (config.formConnect.getLead().getFields().get(position).getType().equalsIgnoreCase("select")) {
-                    getRecyclerView.findViewHolderForAdapterPosition(position)
-                            .itemView
-                            .findViewById(R.id.select)
-                            .setBackgroundResource(R.drawable.rounded_bg_error);
-                } else if (config.formConnect.getLead().getFields().get(position).getType().equalsIgnoreCase("textarea")) {
-                    getRecyclerView.findViewHolderForAdapterPosition(position)
-                            .itemView
-                            .findViewById(R.id.textarea)
-                            .setBackgroundResource(R.drawable.rounded_bg_error);
-                } else if (config.formConnect.getLead().getFields().get(position).getType().equalsIgnoreCase("input")) {
-                    getRecyclerView.findViewHolderForAdapterPosition(position)
-                            .itemView
-                            .findViewById(R.id.textarea)
-                            .setBackgroundResource(R.drawable.rounded_bg_error);
-                }
-            } else {
-                getRecyclerView.findViewHolderForAdapterPosition(position)
-                        .itemView
-                        .findViewById(R.id.input)
-                        .setBackgroundResource(R.drawable.rounded_bg_error);
-            }
-        }
+//        for (int i = 0; i < config.formConnect.getLead().getFields().size(); i++) {
+//            if (config.formConnect.getLead().getFields().get(i).isRequired() &&
+//                    TextUtils.isEmpty(values[i])) {
+//                position = i;
+//                isDone = false;
+//                break;
+//            }
+//        }
+//        if (isDone) {
+//            sendLead();
+//        } else {
+//            if (config.formConnect.getLead().getFields().get(position).getType() != null) {
+//                if (config.formConnect.getLead().getFields().get(position).getType().equalsIgnoreCase("select")) {
+//                    getRecyclerView.findViewHolderForAdapterPosition(position)
+//                            .itemView
+//                            .findViewById(R.id.select)
+//                            .setBackgroundResource(R.drawable.rounded_bg_error);
+//                } else if (config.formConnect.getLead().getFields().get(position).getType().equalsIgnoreCase("textarea")) {
+//                    getRecyclerView.findViewHolderForAdapterPosition(position)
+//                            .itemView
+//                            .findViewById(R.id.textarea)
+//                            .setBackgroundResource(R.drawable.rounded_bg_error);
+//                } else if (config.formConnect.getLead().getFields().get(position).getType().equalsIgnoreCase("input")) {
+//                    getRecyclerView.findViewHolderForAdapterPosition(position)
+//                            .itemView
+//                            .findViewById(R.id.textarea)
+//                            .setBackgroundResource(R.drawable.rounded_bg_error);
+//                }
+//            } else {
+//                getRecyclerView.findViewHolderForAdapterPosition(position)
+//                        .itemView
+//                        .findViewById(R.id.input)
+//                        .setBackgroundResource(R.drawable.rounded_bg_error);
+//            }
+//        }
     }
 
     private void sendLead() {
-        if (config.fieldValueInputs.size() > 0) {
-            config.fieldValueInputs.clear();
-        }
-        for (int i = 0; i < config.formConnect.getLead().getFields().size(); i++) {
-//            if (!TextUtils.isEmpty(values[i])) {
-                FieldValueInput fieldValueInput = FieldValueInput.builder()
-                        ._id(config.formConnect.getLead().getFields().get(i).getId())
-                        .type(config.formConnect.getLead().getFields().get(i).getType())
-                        .validation(config.formConnect.getLead().getFields().get(i).getValition())
-                        .text(config.formConnect.getLead().getFields().get(i).getText())
-                        .value(values[i])
-                        .build();
-                config.fieldValueInputs.add(fieldValueInput);
-//            }
-        }
+//        if (config.fieldValueInputs.size() > 0) {
+//            config.fieldValueInputs.clear();
+//        }
+//        for (int i = 0; i < config.formConnect.getLead().getFields().size(); i++) {
+////            if (!TextUtils.isEmpty(values[i])) {
+//                FieldValueInput fieldValueInput = FieldValueInput.builder()
+//                        ._id(config.formConnect.getLead().getFields().get(i).getId())
+//                        .type(config.formConnect.getLead().getFields().get(i).getType())
+//                        .validation(config.formConnect.getLead().getFields().get(i).getValition())
+//                        .text(config.formConnect.getLead().getFields().get(i).getText())
+//                        .value(values[i])
+//                        .build();
+//                config.fieldValueInputs.add(fieldValueInput);
+////            }
+//        }
 
         ((ConversationListActivity) getActivity()).sendLead();
     }
 
     public void start_new_conversation(View v) {
 //        config.conversationId = null;
-        config.isFirstStart = true;
+//        config.isFirstStart = true;
         Intent a = new Intent(this.getActivity(), MessageActivity.class);
         startActivity(a);
     }

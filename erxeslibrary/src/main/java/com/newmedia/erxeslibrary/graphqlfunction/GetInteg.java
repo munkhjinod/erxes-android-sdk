@@ -24,29 +24,28 @@ public class GetInteg {
     }
 
     public void run() {
-        Log.e(TAG, "run: " + config.brandCode );
-        ER.apolloClient.query(GetMessengerIntegrationQuery.builder()
-                .brandCode(config.brandCode)
-                .build()
-        ).enqueue(request);
+//        ER.apolloClient.query(GetMessengerIntegrationQuery.builder()
+//                .brandCode(config.brandCode)
+//                .build()
+//        ).enqueue(request);
     }
 
     private ApolloCall.Callback<GetMessengerIntegrationQuery.Data> request = new ApolloCall.Callback<GetMessengerIntegrationQuery.Data>() {
         @Override
         public void onResponse(Response<GetMessengerIntegrationQuery.Data> response) {
-            if (!response.hasErrors()) {
-                try {
-                    config.changeLanguage(response.data().getMessengerIntegration().languageCode());
-                    Helper.load_uiOptions(response.data().getMessengerIntegration().uiOptions());
-                    Helper.load_messengerData(response.data().getMessengerIntegration().messengerData());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                ER.notefyAll(ReturnType.INTEGRATION_CHANGED, null, null);
-            } else {
-                Log.e(TAG, "errors " + response.errors().toString());
-                ER.notefyAll(ReturnType.SERVERERROR, null, response.errors().get(0).message());
-            }
+//            if (!response.hasErrors()) {
+//                try {
+//                    config.changeLanguage(response.data().getMessengerIntegration().languageCode());
+//                    Helper.load_uiOptions(response.data().getMessengerIntegration().uiOptions());
+//                    Helper.load_messengerData(response.data().getMessengerIntegration().messengerData());
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//                ER.notefyAll(ReturnType.INTEGRATION_CHANGED, null, null);
+//            } else {
+//                Log.e(TAG, "errors " + response.errors().toString());
+//                ER.notefyAll(ReturnType.SERVERERROR, null, response.errors().get(0).message());
+//            }
         }
 
         @Override

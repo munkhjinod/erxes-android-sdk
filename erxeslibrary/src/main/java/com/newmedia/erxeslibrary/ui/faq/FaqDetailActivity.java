@@ -64,7 +64,7 @@ public class FaqDetailActivity extends AppCompatActivity {
                 });
             }
         });
-        this.findViewById(R.id.info_header).setBackgroundColor(config.getMessengerParams().colorCode);
+//        this.findViewById(R.id.info_header).setBackgroundColor(config.getMessengerParams().colorCode);
         this.findViewById(R.id.close).setOnTouchListener(touchListener);
         this.findViewById(R.id.back).setOnTouchListener(touchListener);
 
@@ -79,28 +79,28 @@ public class FaqDetailActivity extends AppCompatActivity {
 
         if(id!=null) {
             KnowledgeBaseCategory knowledgeBaseCategory = null;
-            for (int i = 0; i < config.knowledgeBaseTopic.categories.size(); i ++) {
-                if (config.knowledgeBaseTopic.categories.get(i)._id.equals(categoryId)) {
-                    knowledgeBaseCategory = config.knowledgeBaseTopic.categories.get(i);
-                    break;
-                }
-            }
-            if (knowledgeBaseCategory != null) {
-                KnowledgeBaseArticle knowledgeBaseArticle = null;
-                for (int i = 0 ; i < knowledgeBaseCategory.articles.size(); i ++) {
-                    if (knowledgeBaseCategory.articles.get(i)._id.equals(id)) {
-                        knowledgeBaseArticle = knowledgeBaseCategory.articles.get(i);
-                        break;
-                    }
-                }
-                if (knowledgeBaseArticle != null) {
-                    general.setText(knowledgeBaseArticle.title);
-                    date.setText(config.full_date(knowledgeBaseArticle.createdDate));
-                    article_header.setText(knowledgeBaseArticle.title);
-                    content1.setText(Html.fromHtml(knowledgeBaseArticle.summary));
-                    content2.setText(Html.fromHtml(knowledgeBaseArticle.content));
-                }
-            }
+//            for (int i = 0; i < config.knowledgeBaseTopic.categories.size(); i ++) {
+//                if (config.knowledgeBaseTopic.categories.get(i)._id.equals(categoryId)) {
+//                    knowledgeBaseCategory = config.knowledgeBaseTopic.categories.get(i);
+//                    break;
+//                }
+//            }
+//            if (knowledgeBaseCategory != null) {
+//                KnowledgeBaseArticle knowledgeBaseArticle = null;
+//                for (int i = 0 ; i < knowledgeBaseCategory.articles.size(); i ++) {
+//                    if (knowledgeBaseCategory.articles.get(i)._id.equals(id)) {
+//                        knowledgeBaseArticle = knowledgeBaseCategory.articles.get(i);
+//                        break;
+//                    }
+//                }
+//                if (knowledgeBaseArticle != null) {
+//                    general.setText(knowledgeBaseArticle.title);
+//                    date.setText(config.full_date(knowledgeBaseArticle.createdDate));
+//                    article_header.setText(knowledgeBaseArticle.title);
+//                    content1.setText(Html.fromHtml(knowledgeBaseArticle.summary));
+//                    content2.setText(Html.fromHtml(knowledgeBaseArticle.content));
+//                }
+//            }
         }
     }
     public void Click_back(View v){

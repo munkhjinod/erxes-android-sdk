@@ -64,14 +64,14 @@ public class Conversation {
 
     }
     static public Conversation update(InsertMessageMutation.InsertMessage a, String message,Config config){
-        config.conversationId = a.conversationId();
+//        config.conversationId = a.conversationId();
         Conversation conversation = new Conversation();
-        conversation._id = config.conversationId;
-        conversation.content = message;
-        conversation.status = "open";
-        conversation.date = a.createdAt();
-        conversation.customerId = config.customerId;
-        conversation.integrationId = config.integrationId;
+//        conversation._id = config.conversationId;
+//        conversation.content = message;
+//        conversation.status = "open";
+//        conversation.date = a.createdAt();
+//        conversation.customerId = config.customerId;
+//        conversation.integrationId = config.integrationId;
         return conversation;
     }
 

@@ -74,14 +74,14 @@ public class Helper {
             return;
         String color = js.getString("color");
         dataManager.setData(DataManager.color, color);
-        if(color != null)
-            config.colorCode = Color.parseColor(color);
-        else{
-            config.colorCode = Color.parseColor("#5629B6");
-        }
-        color = js.getString("wallpaper");
-        dataManager.setData("wallpaper", color);
-        language = dataManager.getDataS(DataManager.language);
+//        if(color != null)
+//            config.colorCode = Color.parseColor(color);
+//        else{
+//            config.colorCode = Color.parseColor("#5629B6");
+//        }
+//        color = js.getString("wallpaper");
+//        dataManager.setData("wallpaper", color);
+//        language = dataManager.getDataS(DataManager.language);
     }
 
     static public Point display_configure(AppCompatActivity context, View container, String color){

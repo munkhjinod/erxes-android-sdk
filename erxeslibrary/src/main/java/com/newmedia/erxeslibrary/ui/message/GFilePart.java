@@ -55,7 +55,7 @@ public class GFilePart implements ProgressRequestBody.Listener {
         senddrawable.setCenterRadius(  30f);
 
         progressBar = AC.findViewById(R.id.simpleProgressBar);
-        progressBar.getProgressDrawable().mutate().setColorFilter(config.colorCode, PorterDuff.Mode.SRC_IN);
+//        progressBar.getProgressDrawable().mutate().setColorFilter(config.colorCode, PorterDuff.Mode.SRC_IN);
         progressBar.setMax(100);
         button_chatbox_send = AC.findViewById(R.id.button_chatbox_send);
         filelist = AC.findViewById(R.id.filelist);
@@ -82,7 +82,7 @@ public class GFilePart implements ProgressRequestBody.Listener {
 
         ;
         Request request = new Request.Builder()
-                .url(config.HOST_UPLOAD)
+//                .url(config.HOST_UPLOAD)
                 .addHeader("Authorization","")
                 .post(new ProgressRequestBody(formBody,this)).build();
 

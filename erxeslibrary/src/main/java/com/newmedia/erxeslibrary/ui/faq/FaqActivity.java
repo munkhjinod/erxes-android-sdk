@@ -77,7 +77,7 @@ public class FaqActivity extends AppCompatActivity {
                 });
             }
         });
-        this.findViewById(R.id.info_header).setBackgroundColor(config.getMessengerParams().colorCode);
+//        this.findViewById(R.id.info_header).setBackgroundColor(config.getMessengerParams().colorCode);
         this.findViewById(R.id.close).setOnTouchListener(touchListener);
         this.findViewById(R.id.back).setOnTouchListener(touchListener);
         recyclerView = this.findViewById(R.id.recycler_view);
@@ -85,22 +85,22 @@ public class FaqActivity extends AppCompatActivity {
         general_number = this.findViewById(R.id.general_number);
         general_description = this.findViewById(R.id.general_description);
         String id = getIntent().getStringExtra("id");
-        if( id != null) {
-            KnowledgeBaseCategory knowledgeBaseCategory = null;
-            String categoryId = null;
-            for (int i = 0; i < config.knowledgeBaseTopic.categories.size(); i ++) {
-                if (config.knowledgeBaseTopic.categories.get(i)._id.equals(id)) {
-                    knowledgeBaseCategory = config.knowledgeBaseTopic.categories.get(i);
-                    categoryId = knowledgeBaseCategory._id;
-                    break;
-                }
-            }
-            general.setText(knowledgeBaseCategory.title);
-            general_number.setText("("+knowledgeBaseCategory.numOfArticles+")");
-            general_description.setText(knowledgeBaseCategory.description);
-            recyclerView.setAdapter(new ArticleAdapter(this, knowledgeBaseCategory.articles,categoryId));
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        }
+//        if( id != null) {
+//            KnowledgeBaseCategory knowledgeBaseCategory = null;
+//            String categoryId = null;
+//            for (int i = 0; i < config.knowledgeBaseTopic.categories.size(); i ++) {
+//                if (config.knowledgeBaseTopic.categories.get(i)._id.equals(id)) {
+//                    knowledgeBaseCategory = config.knowledgeBaseTopic.categories.get(i);
+//                    categoryId = knowledgeBaseCategory._id;
+//                    break;
+//                }
+//            }
+//            general.setText(knowledgeBaseCategory.title);
+//            general_number.setText("("+knowledgeBaseCategory.numOfArticles+")");
+//            general_description.setText(knowledgeBaseCategory.description);
+//            recyclerView.setAdapter(new ArticleAdapter(this, knowledgeBaseCategory.articles,categoryId));
+//            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        }
     }
     private View.OnTouchListener touchListener =  new View.OnTouchListener() {
         @Override

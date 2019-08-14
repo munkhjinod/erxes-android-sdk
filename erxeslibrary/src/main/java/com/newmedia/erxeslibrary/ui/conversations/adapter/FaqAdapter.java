@@ -35,7 +35,7 @@ public class FaqAdapter extends RecyclerView.Adapter<FaqAdapter.Holder> {
         this.config = Config.getInstance(context);
         if (categories.size() > 0)
             categories.clear();
-        categories.addAll(config.knowledgeBaseTopic.categories);
+//        categories.addAll(config.knowledgeBaseTopic.categories);
     }
 
     @NonNull

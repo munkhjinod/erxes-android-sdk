@@ -5,7 +5,7 @@ import android.graphics.Color;
 import com.newmedia.erxeslibrary.DataManager;
 import com.newmedia.erxeslibrary.helper.Json;
 
-public class ConnectionState {
+public class State {
     private String customerId;
     private String integrationId;
     private String language;
@@ -48,6 +48,14 @@ public class ConnectionState {
         if(language == null)
             return "en";
         return language;
+    }
+
+    public Messengerdata getMessengerdata() {
+        return messengerdata;
+    }
+
+    public UiOptions getUiOptions() {
+        return uiOptions;
     }
 
     public void setMessengerdata(Json json, DataManager dataManager) {

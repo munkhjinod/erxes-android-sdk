@@ -29,13 +29,13 @@ public class Insertmess {
     public void run( String message, final String conversationId,List<AttachmentInput> list){
         this.message = message;
         this.conversationId = conversationId;
-        InsertMessageMutation.Builder temp =InsertMessageMutation.builder().
-                integrationId(config.integrationId).
-                customerId(config.customerId).
-                message(message).
-                attachments(list).
-                conversationId(conversationId);
-        ER.apolloClient.mutate(temp.build()).enqueue(request);
+//        InsertMessageMutation.Builder temp =InsertMessageMutation.builder().
+//                integrationId(config.integrationId).
+//                customerId(config.customerId).
+//                message(message).
+//                attachments(list).
+//                conversationId(conversationId);
+//        ER.apolloClient.mutate(temp.build()).enqueue(request);
     }
 
     private ApolloCall.Callback<InsertMessageMutation.Data> request = new ApolloCall.Callback<InsertMessageMutation.Data>() {
@@ -48,7 +48,7 @@ public class Insertmess {
             }
             else {
                 ConversationMessage a = ConversationMessage.convert(response.data().insertMessage(),message,config);
-                config.conversationMessages.add(a);
+//                config.conversationMessages.add(a);
                 ER.notefyAll(ReturnType.Mutation,conversationId,null);
             }
         }

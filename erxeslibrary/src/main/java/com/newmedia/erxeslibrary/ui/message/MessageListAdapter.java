@@ -23,6 +23,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.Target;
 import com.newmedia.erxeslibrary.configuration.Config;
+import com.newmedia.erxeslibrary.helper.DateHelper;
+import com.newmedia.erxeslibrary.helper.Helper;
 import com.newmedia.erxeslibrary.model.*;
 import com.newmedia.erxeslibrary.R;
 
@@ -64,18 +66,18 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             int zoruu = mMessageList.size() - previous_size;
 
             previous_size = mMessageList.size();
-            if(config.messengerdata.getWelcome(config.language)!=null) {
-                if (zoruu == 1)
-                    notifyItemInserted(mMessageList.size());
-                else
-                    notifyItemRangeInserted(counter_before+1, zoruu);
-            }else{
-                if (zoruu == 1)
-                    notifyItemInserted(mMessageList.size() - 1);
-                else
-                    notifyItemRangeInserted(counter_before, zoruu);
-
-            }
+//            if(config.messengerdata.getWelcome(config.language)!=null) {
+//                if (zoruu == 1)
+//                    notifyItemInserted(mMessageList.size());
+//                else
+//                    notifyItemRangeInserted(counter_before+1, zoruu);
+//            }else{
+//                if (zoruu == 1)
+//                    notifyItemInserted(mMessageList.size() - 1);
+//                else
+//                    notifyItemRangeInserted(counter_before, zoruu);
+//
+//            }
             return true;
         }
         else
@@ -106,33 +108,34 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        if(position == 0 && config.messengerdata.getWelcome(config.language)!=null)
-            return 2; //welcomeMessage
-
-        if(config.messengerdata.getWelcome(config.language)!=null)
-            position = position - 1;
-
-        if( config.customerId.equalsIgnoreCase(mMessageList.get(position).customerId ))
-            return 0;
-        else
-            return 1;
+//        if(position == 0 && config.messengerdata.getWelcome(config.language)!=null)
+//            return 2; //welcomeMessage
+//
+//        if(config.messengerdata.getWelcome(config.language)!=null)
+//            position = position - 1;
+//
+//        if( config.customerId.equalsIgnoreCase(mMessageList.get(position).customerId ))
+//            return 0;
+//        else
+//            return 1;
+        return 0;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
 
-        ConversationMessage message ;
+        ConversationMessage message = new ConversationMessage() ;
 
-        if(config.messengerdata.getWelcome(config.language)!=null && (position == 0)){
-            message = new ConversationMessage();
-            message.content = (config.messengerdata.getWelcome(config.language));
-            message.createdAt = ("");
-        }
-        else if(config.messengerdata.getWelcome(config.language) != null)
-            message = mMessageList.get(position - 1);
-        else
-            message = mMessageList.get(position);
+//        if(config.messengerdata.getWelcome(config.language)!=null && (position == 0)){
+//            message = new ConversationMessage();
+//            message.content = (config.messengerdata.getWelcome(config.language));
+//            message.createdAt = ("");
+//        }
+//        else if(config.messengerdata.getWelcome(config.language) != null)
+//            message = mMessageList.get(position - 1);
+//        else
+//            message = mMessageList.get(position);
 
         switch (holder.getItemViewType()) {
             case 0:
@@ -149,10 +152,11 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        if(config.messengerdata.getWelcome(config.language) != null)
-            return mMessageList.size() + 1;
-        else
-            return mMessageList.size() ;
+            return  0;
+//        if(config.messengerdata.getWelcome(config.language) != null)
+//            return mMessageList.size() + 1;
+//        else
+//            return mMessageList.size() ;
 
     }
     private View.OnClickListener fileDownload = new View.OnClickListener() {
@@ -178,12 +182,12 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
         void bind(ConversationMessage message) {
             messageText.setText(Html.fromHtml(message.content));;
-            timeText.setText(config.Message_datetime(message.createdAt));
-            GradientDrawable a1 = (GradientDrawable) messageText.getBackground();
-            a1.setColor(config.colorCode);
-//                messageText.setBackgroundColor(Color.parseColor(Config.color));
-            filelist.removeAllViews();
-            timeText.setText(config.Message_datetime(message.createdAt));
+//            timeText.setText(config.Message_datetime(message.createdAt));
+//            GradientDrawable a1 = (GradientDrawable) messageText.getBackground();
+//            a1.setColor(config.colorCode);
+////                messageText.setBackgroundColor(Color.parseColor(Config.color));
+//            filelist.removeAllViews();
+//            timeText.setText(config.Message_datetime(message.createdAt));
             if(message.attachments !=null) {
                 LayoutInflater layoutInflater = LayoutInflater.from(context);
 
@@ -231,7 +235,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             String descriptionWithOutExtraSpace = htmlDescription.toString().trim();
             messageText.setText(htmlDescription.subSequence(0, descriptionWithOutExtraSpace.length()));
 //            messageText.setText(message.content);;
-            timeText.setText(config.Message_datetime(message.createdAt));
+            timeText.setText(DateHelper.Message_datetime(message.createdAt,",mn"));
 
 /**/
             if(message.user!=null){
@@ -248,7 +252,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
                         .into(profileImage);
 
             filelist.removeAllViews();
-            timeText.setText(config.Message_datetime(message.createdAt));
+            timeText.setText(DateHelper.Message_datetime(message.createdAt,"mn"));
             if(message.attachments !=null) {
                 LayoutInflater layoutInflater = LayoutInflater.from(context);
 
@@ -303,7 +307,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
             inputImage.setImageDrawable(circularProgressDrawable);
 
-            inputImage.getDrawable().setColorFilter(config.colorCode, PorterDuff.Mode.SRC_ATOP);
+//            inputImage.getDrawable().setColorFilter(config.colorCode, PorterDuff.Mode.SRC_ATOP);
 
             fileview.setTag(url);
             fileview.setOnClickListener(fileDownload);

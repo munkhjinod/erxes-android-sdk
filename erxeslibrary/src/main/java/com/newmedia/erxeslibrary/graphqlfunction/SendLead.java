@@ -30,19 +30,19 @@ public class SendLead {
     }
 
     public void run() {
-        JSONObject browserInfo = new JSONObject();
-        try {
-            browserInfo = new JSONObject(config.geoResponse);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        ER.apolloClient.mutate(SaveLeadMutation.builder()
-                .formId(config.formConnect.getLead().getId())
-                .integrationId(config.integrationId)
-                .submissions(config.fieldValueInputs)
-                .browserInfo(new Json(new JSONObject()))
-                .build())
-                .enqueue(request);
+//        JSONObject browserInfo = new JSONObject();
+//        try {
+//            browserInfo = new JSONObject(config.geoResponse);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        ER.apolloClient.mutate(SaveLeadMutation.builder()
+//                .formId(config.formConnect.getLead().getId())
+//                .integrationId(config.integrationId)
+//                .submissions(config.fieldValueInputs)
+//                .browserInfo(new Json(new JSONObject()))
+//                .build())
+//                .enqueue(request);
     }
 
     private ApolloCall.Callback<SaveLeadMutation.Data> request = new ApolloCall.Callback<SaveLeadMutation.Data>() {
